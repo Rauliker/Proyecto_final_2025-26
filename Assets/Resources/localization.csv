@@ -1,2 +1,5 @@
-RECOGER_ARMA,Pulsa $boton.recoger para recoger ,Pulsa $boton.recoger para recoger 
+RECOGER_ARMA,Pulsa $boton.recoger para recoger ,Press $boton.recoger to collect 
 PISTOLA,pistola,pistol
+INICIO,Iniciar partida,Start
+CONFIGURACION,Opciones,Options
+SALIR,Salir,Exit
