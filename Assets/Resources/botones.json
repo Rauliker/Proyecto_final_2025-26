@@ -1,0 +1,9 @@
+{
+  "MoverArriba": "W",
+  "MoverAbajo": "S",
+  "MoverIzquierda": "A",
+  "MoverDerecha": "D",
+  "Saltar": "Space",
+  "Disparar": "Mouse0",
+  "Recoger": "E"
+}

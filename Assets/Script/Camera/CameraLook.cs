@@ -24,14 +24,11 @@ public class CameraLook : MonoBehaviour
     {
         Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-        // Multiplica el movimiento del mouse por la sensibilidad y por Time.deltaTime para que sea frame-rate independiente
         float mouseX = mouseDelta.x * mouseSensitivity * Time.deltaTime;
         float mouseY = mouseDelta.y * mouseSensitivity * Time.deltaTime;
 
-        // Resta el movimiento vertical del mouse para invertir la dirección (mirar hacia arriba/bajo)
         xRotation -= mouseY;
 
-        // Limita la rotación vertical para que no gire 360° (no se voltee la cámara)
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         // Aplica la rotación vertical solo a la cámara

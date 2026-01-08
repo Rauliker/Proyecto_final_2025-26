@@ -8,40 +8,29 @@ public class PlayerMovement3D : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
 
-    private CharacterController characterController;
+    private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
 
-    void Start()
+    void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
     }
 
-    void Update()
+    public void Move(Vector2 input, bool jump)
     {
-        // Detecta si el personaje está en el suelo
-        isGrounded = characterController.isGrounded;
+        isGrounded = controller.isGrounded;
 
         if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f; // pequeño valor para mantener al personaje en el suelo
-        }
+            velocity.y = -2f;
 
-        // Movimiento horizontal y vertical
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * input.x + transform.forward * input.y;
+        controller.Move(move * speed * Time.deltaTime);
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        characterController.Move(move * speed * Time.deltaTime);
-
-        // Salto
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
+        if (jump && isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
 
-        // Gravedad
         velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
     }
 }
