@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Text.RegularExpressions;
+using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using UnityEngine;
 
 public class LocalizationManager : MonoBehaviour
 {
     public static LocalizationManager Instance;
 
-    public Idioma idiomaActual = Idioma.Espanol;
+    public Idioma idiomaActual = Idioma.Español;
 
     public string csvFileName = "localization";
 
@@ -19,6 +21,7 @@ public class LocalizationManager : MonoBehaviour
 
     public BotonesConfig botones;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,14 +29,47 @@ public class LocalizationManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            LoadJson();
+            ApllyConfig();         // Lee config.json
+            LoadJson();           // Botones
             LoadCSV();
-            LoadBotonesVariables(); 
+            LoadBotonesVariables();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public ConfigData LoadConfig()
+    {
+        TextAsset jsonText = Resources.Load<TextAsset>("config");
+        ConfigData configData = JsonUtility.FromJson<ConfigData>(jsonText.text);
+        return configData;
+    }
+
+    // Carga config.json
+    private void ApllyConfig()
+    {
+        ConfigData configData = LoadConfig();
+        if (configData.Idioma == "Español")
+            idiomaActual = (Idioma)Enum.Parse(typeof(Idioma), configData.Idioma, true);
+        else
+            idiomaActual = Idioma.Ingles; 
+
+    }
+
+    // Función para editar config.json
+    public void SaveConfig(Idioma nuevoIdioma)
+    {
+        ConfigData configData = new ConfigData();
+        configData.Idioma = nuevoIdioma == Idioma.Español ? "Español" : "Inglés";
+
+        string jsonText = JsonUtility.ToJson(configData, true);
+        File.WriteAllText("config", jsonText);
+
+        idiomaActual = nuevoIdioma;
+
+        Debug.Log("Config actualizado. Nuevo idioma: " + configData.Idioma);
     }
 
     private void LoadJson()
@@ -54,11 +90,10 @@ public class LocalizationManager : MonoBehaviour
     {
         if (botones == null) return;
 
-        // Usamos reflection para recorrer todos los campos públicos de BotonesConfig
         FieldInfo[] fields = typeof(BotonesConfig).GetFields(BindingFlags.Public | BindingFlags.Instance);
         foreach (var field in fields)
         {
-            string key = "boton." + field.Name.ToLower(); // ejemplo: boton.recoger
+            string key = "boton." + field.Name.ToLower();
             string value = field.GetValue(botones)?.ToString() ?? "";
             variables[key] = value;
         }
@@ -114,7 +149,7 @@ public class LocalizationManager : MonoBehaviour
         if (traducciones.ContainsKey(key))
         {
             string[] row = traducciones[key];
-            int idiomaIndex = idiomaActual == Idioma.Espanol ? 1 : 2;
+            int idiomaIndex = idiomaActual == Idioma.Español ? 1 : 2;
             if (idiomaIndex >= row.Length)
                 return key;
 
@@ -122,20 +157,23 @@ public class LocalizationManager : MonoBehaviour
         }
         else
         {
-            // Variable dinámica
             texto = variables[key];
         }
 
-        // Reemplazo de tokens recursivo
         MatchCollection matches = tokenRegex.Matches(texto);
         foreach (Match match in matches)
         {
-            string token = match.Value.Substring(1); // quitamos $
-
+            string token = match.Value.Substring(1);
             string tokenTranslation = GetTranslationRecursive(token, visitedKeys);
             texto = texto.Replace(match.Value, tokenTranslation);
         }
 
         return texto;
+    }
+
+    [System.Serializable]
+    public class ConfigData
+    {
+        public string Idioma;
     }
 }

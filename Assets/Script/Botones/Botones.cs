@@ -1,10 +1,8 @@
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Necesario para Button
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-[System.Serializable]
 public enum TiposDeBotones
 {
     Inicio,
@@ -14,83 +12,75 @@ public enum TiposDeBotones
 
 public class Botones : MonoBehaviour
 {
-    public string texto;
+    [Header("Tipo de Botón")]
     public TiposDeBotones TipodeBoton;
-    public bool pasarNivel;
-    public int indiceNivel;
+
+    [Header("Opciones de Escena")]
+    public string nombreNivel;
+
+    [Header("Objetos UI")]
+    public List<UIElementEntry> elementsUI;
 
     void Start()
     {
-        Cambiar_texto();
         AsignarFuncion();
     }
 
     void AsignarFuncion()
     {
-        // Obtener el componente Button del objeto
         Button boton = GetComponent<Button>();
-        if (boton == null)
+
+        if (!boton)
         {
-            Debug.LogError("No se encontró un componente Button en este GameObject");
+            Debug.LogError("No se encontró un componente Button.");
             return;
         }
 
-        // Limpiar listeners anteriores para evitar duplicados
         boton.onClick.RemoveAllListeners();
 
-        // Asignar la función correcta según el tipo de botón
         switch (TipodeBoton)
         {
             case TiposDeBotones.Inicio:
                 boton.onClick.AddListener(Inicio);
                 break;
+
             case TiposDeBotones.Configuracion:
                 boton.onClick.AddListener(Configuracion);
                 break;
+
             case TiposDeBotones.Salir:
                 boton.onClick.AddListener(Salir);
                 break;
-            default:
-                Debug.LogError("Error en el switch de botones");
-                break;
         }
-    }
-
-    public void Cambiar_texto()
-    {
-        string resultado = texto.ToUpper().Replace(" ", "");
-
-        Transform textTransform = transform.Find("Text (TMP)");
-        if (textTransform == null)
-        {
-            Debug.LogError("No se encontró el hijo 'Text (TMP)'");
-            return;
-        }
-
-        TextMeshProUGUI textoTMP = textTransform.GetComponent<TextMeshProUGUI>();
-        if (textoTMP == null)
-        {
-            Debug.LogError("No se encontró un componente TextMeshProUGUI en 'Text (TMP)'");
-            return;
-        }
-
-        string recoger = LocalizationManager.Instance.GetTranslation(resultado);
-        textoTMP.text = recoger;
-        textoTMP.enabled = true;
     }
 
     public void Inicio()
     {
-        SceneManager.LoadScene(indiceNivel);
+        if (string.IsNullOrEmpty(nombreNivel)) return;
+
+        if (Application.isPlaying && SceneManager.GetSceneByName(nombreNivel) != null)
+        {
+            SceneManager.LoadScene(nombreNivel);
+        }
+        else
+        {
+            Debug.LogError($"La escena '{nombreNivel}' no existe en Build Settings.");
+        }
     }
 
     public void Configuracion()
     {
-        Debug.Log("Botón Configuración pulsado");
+        foreach (var entry in elementsUI)
+        {
+            Debug.Log($"Activando: {entry.value.name} -> {entry.key}");
+
+            entry.value.SetActive(entry.key);
+        }
     }
 
     public void Salir()
     {
+        Debug.Log("Botón Salir pulsado");
         Application.Quit();
     }
 }
