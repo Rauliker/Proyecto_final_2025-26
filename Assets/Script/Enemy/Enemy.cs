@@ -1,11 +1,24 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
     public int vida = 100;
     public GameObject Jugador;
-    public float velocidad = 5f;
+
+    private NavMeshAgent agente;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        agente = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
+
+        // Activamos la gravedad del Rigidbody
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotation; // Evita que se caiga girando
+        agente.speed = 5f;
+    }
 
     void Update()
     {
@@ -14,24 +27,12 @@ public class Enemy : MonoBehaviour
 
     void SeguirJugador()
     {
-        if (Jugador != null)
+        if (Jugador != null && agente.isOnNavMesh)
         {
-            // Mueve al enemigo hacia la posición del jugador
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                Jugador.transform.position,
-                velocidad * Time.deltaTime
-            );
-
-            Vector3 direccion = Jugador.transform.position - transform.position;
-            if (direccion != Vector3.zero)
-            {
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(direccion),
-                    5f * Time.deltaTime
-                );
-            }
+            // Calculamos destino solo en XZ
+            Vector3 destino = Jugador.transform.position;
+            destino.y = transform.position.y;
+            agente.SetDestination(destino);
         }
     }
 
