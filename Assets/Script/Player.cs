@@ -16,6 +16,49 @@ public class Player : MonoBehaviour
         movimiento = GetComponent<PlayerMovement3D>();
         CargarBotones();
     }
+    void Start()
+    {
+        EquiparArmasIniciales();
+    }
+
+    void EquiparArmasIniciales()
+    {
+        if (armas.Count == 0) return; // Si no hay armas, no hacemos nada
+
+        Transform camTransform = transform.Find("Main Camera");
+        Transform positionWeapon = camTransform.Find("Posicion Armas");
+
+        // Creamos una lista temporal para reemplazar los originales por clones
+        List<GameObject> armasClonadas = new List<GameObject>();
+
+        foreach (GameObject arma in armas)
+        {
+            if (arma == null) continue;
+
+            // Creamos un clon del arma
+            GameObject armaClon = Instantiate(arma);
+
+            // La equipamos
+            armaClon.transform.SetParent(positionWeapon);
+            armaClon.transform.SetPositionAndRotation(
+                positionWeapon.position,
+                positionWeapon.rotation * Quaternion.Euler(0f, 270f, 0f)
+            );
+
+            // Desactivamos el collider para que no interfiera
+            armaClon.GetComponent<Collider>().enabled = false;
+
+            armasClonadas.Add(armaClon);
+        }
+
+        // Reemplazamos la lista original por los clones
+        armas = armasClonadas;
+
+        Debug.Log("Armas iniciales equipadas correctamente (con clones).");
+    }
+
+   
+
 
     void CargarBotones()
     {
@@ -71,19 +114,23 @@ public class Player : MonoBehaviour
 
     void RecogerArma(Recoger recoger)
     {
-        GameObject arma = recoger.gameObject;
-        armas.Add(arma);
+        GameObject armaOriginal = recoger.gameObject;
+
+        // Creamos un clon en lugar de usar el original
+        GameObject armaClon = Instantiate(armaOriginal);
+
+        armas.Add(armaClon);
 
         Transform camTransform = transform.Find("Main Camera");
         Transform positionWeapon = camTransform.Find("Posicion Armas");
 
-        arma.transform.SetParent(positionWeapon);
-        arma.transform.SetPositionAndRotation(
+        armaClon.transform.SetParent(positionWeapon);
+        armaClon.transform.SetPositionAndRotation(
             positionWeapon.position,
             positionWeapon.rotation * Quaternion.Euler(0f, 270f, 0f)
         );
 
-        arma.GetComponent<Collider>().enabled = false;
+        armaClon.GetComponent<Collider>().enabled = false;
         objetoRecogible = null;
     }
 
