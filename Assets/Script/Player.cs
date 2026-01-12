@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public BotonesConfig botones;
 
+    public int vida = 100;
+
     void Awake()
     {
         movimiento = GetComponent<PlayerMovement3D>();
@@ -78,7 +80,7 @@ public class Player : MonoBehaviour
         arma.transform.SetParent(positionWeapon);
         arma.transform.SetPositionAndRotation(
             positionWeapon.position,
-            positionWeapon.rotation
+            positionWeapon.rotation * Quaternion.Euler(0f, 270f, 0f)
         );
 
         arma.GetComponent<Collider>().enabled = false;
@@ -106,6 +108,23 @@ public class Player : MonoBehaviour
             Debug.LogError("Tecla inválida: " + tecla);
             return KeyCode.None;
         }
+    }
+
+    public void RecibirDanio(int danio)
+    {
+        vida -= danio;
+        Debug.Log("Diana golpeada. Vida restante: " + vida);
+
+        if (vida <= 0)
+        {
+            Destruir();
+        }
+    }
+
+    void Destruir()
+    {
+        Debug.Log("Diana destruida");
+        Destroy(gameObject);
     }
 
 }

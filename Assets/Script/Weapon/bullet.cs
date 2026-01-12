@@ -8,9 +8,14 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
-        }    
-        Destroy(gameObject);
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
+            if (enemy != null)
+            {
+                enemy.RecibirDanio(damage);
+            }
+        }
+
+        Destroy(gameObject);
     }
 }
