@@ -1,9 +1,19 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
     public float speed = 20f;
     public float bulletGravity = 9.8f;
+
+    [Header("Munición")] 
+    public int clipSize = 10;
+    public int ammunition_clip;
+    public int ammo = 100;           
+    public int maxAmmo = 200;
+    public int reloadTextAmmo = 3;
+    public TextMeshProUGUI textAmmo;
 
     [Header("Cadencia")]
     public float fireRate = 0.3f;
@@ -12,6 +22,11 @@ public class Shoot : MonoBehaviour
     public FireMode fireMode = FireMode.Single;
     public int bulletsPerShot = 3;
     public float spreadAngle = 5f;
+
+    [Header("Recarga")]
+    public float reloadTime = 2f;
+    private bool isReloading = false;
+    public TextMeshProUGUI textReload;
 
     public GameObject bullet;
     public Transform firePoint;
@@ -23,14 +38,35 @@ public class Shoot : MonoBehaviour
         Single,
         Multiple
     }
-
+    public void Start()
+    {
+        ammunition_clip=clipSize;
+        
+        textAmmo.text =$"{ammunition_clip}/{ammo}";
+    }
 
     public void Disparar()
     {
-        if (Time.time < nextFireTime)
+        if (isReloading)
             return;
 
+        if (Time.time < nextFireTime)
+            return;
+        if (ammunition_clip <= 3)
+        {
+            string text = LocalizationManager.Instance.GetTranslation("RECARGAR_ARMA");
+            textReload.text = text;
+            textReload.enabled=true;
+        }
+
+        if (ammunition_clip <= 0)
+        {
+            Recargar();
+            return;
+        }
+
         nextFireTime = Time.time + fireRate;
+        ammunition_clip--;
 
         if (fireMode == FireMode.Single)
         {
@@ -40,7 +76,10 @@ public class Shoot : MonoBehaviour
         {
             DisparoMultiple();
         }
+
+        textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
+
 
     void DispararBala(Vector3 direccion)
     {
@@ -70,4 +109,39 @@ public class Shoot : MonoBehaviour
             DispararBala(direccion);
         }
     }
+    public void Recargar()
+    {
+        if (isReloading || ammunition_clip == maxAmmo || ammo <= 0)
+            return;
+
+        StartCoroutine(RecargarCoroutine());
+    }
+
+
+    private IEnumerator RecargarCoroutine()
+    {
+        isReloading = true;
+        Debug.Log("Recargando...");
+
+
+
+        textReload.text = LocalizationManager.Instance.GetTranslation("RECARGANDO");
+
+        yield return new WaitForSeconds(reloadTime);
+
+        int balasFaltantes = clipSize - ammunition_clip;
+        int balasACargar = Mathf.Min(balasFaltantes, ammo);
+
+        ammunition_clip += balasACargar;
+        ammo -= balasACargar;
+
+        isReloading = false;
+
+        textReload.enabled = false;
+        Debug.Log($"Recarga completa! Balas en cargador: {ammunition_clip}, Munición total: {ammo}");
+
+        textAmmo.text = $"{ammunition_clip}/{ammo}";
+    }
 }
+
+
