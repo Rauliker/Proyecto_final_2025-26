@@ -8,4 +8,5 @@ public class BotonesConfig
     public string Saltar;
     public string Disparar;
     public string Recoger;
+    public string Recargar;
 }

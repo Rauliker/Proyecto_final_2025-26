@@ -43,6 +43,11 @@ public class Recoger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        DissableText(other);
+    }
+
+    public void DissableText(Collider other)
+    {
         if (other.CompareTag("Player"))
         {
             playerEnRango.ClearObjetoRecogible(this);
