@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
     {
         if (textPoints != null)
         {
-            textPoints.text = "Puntos: " + points;
+            textPoints.text = LocalizationManager.Instance.GetTranslation("PUNTOS") + ": " + points;
         }
         else
         {
