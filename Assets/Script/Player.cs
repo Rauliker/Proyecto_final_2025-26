@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,8 @@ public class Player : MonoBehaviour
     private PlayerMovement3D movimiento;
 
     public BotonesConfig botones;
+
+    public TextMeshProUGUI textAmmo;
 
 
     public int vida = 100;
@@ -160,7 +163,7 @@ public class Player : MonoBehaviour
         }
 
         objetoRecogible = null;
-
+        textAmmo.enabled = true;
         Debug.Log("Arma clonada. El arma original permanece en el mundo.");
     }
 

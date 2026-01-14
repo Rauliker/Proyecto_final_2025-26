@@ -13,6 +13,7 @@ public class Shoot : MonoBehaviour
     public int ammo = 100;           
     public int maxAmmo = 200;
     public int reloadTextAmmo = 3;
+    public TextMeshProUGUI textAmmo;
 
     [Header("Cadencia")]
     public float fireRate = 0.3f;
@@ -40,6 +41,8 @@ public class Shoot : MonoBehaviour
     public void Start()
     {
         ammunition_clip=clipSize;
+        
+        textAmmo.text =$"{ammunition_clip}/{ammo}";
     }
 
     public void Disparar()
@@ -73,6 +76,8 @@ public class Shoot : MonoBehaviour
         {
             DisparoMultiple();
         }
+
+        textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
 
 
@@ -118,11 +123,9 @@ public class Shoot : MonoBehaviour
         isReloading = true;
         Debug.Log("Recargando...");
 
-        //if (textReload != null)
-        //{
-        //    textReload.gameObject.SetActive(true);
-        //    textReload.text = LocalizationManager.Instance.GetTranslation("RECARGANDO");
-        //}
+
+
+        textReload.text = LocalizationManager.Instance.GetTranslation("RECARGANDO");
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -134,18 +137,11 @@ public class Shoot : MonoBehaviour
 
         isReloading = false;
 
-        //if (textReload != null)
-        //{
-        //    textReload.text = "";
-        //    textReload.gameObject.SetActive(false);
-        //}
-
         textReload.enabled = false;
         Debug.Log($"Recarga completa! Balas en cargador: {ammunition_clip}, Munición total: {ammo}");
+
+        textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
-
-
-
 }
 
 
