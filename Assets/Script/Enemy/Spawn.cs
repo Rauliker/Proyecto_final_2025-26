@@ -3,22 +3,54 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
+    public static Spawn Instance;
+
+    public GameObject Jugador; 
     public List<GameObject> spawnPoints = new List<GameObject>();
-    public List<GameObject> enemy = new List<GameObject>();
+    public List<GameObject> enemyPrefabs = new List<GameObject>(); 
 
-    void Start()
+    private void Awake()
     {
-        int randomPoint = Random.Range(0, spawnPoints.Count);
-        int randomEnemy = Random.Range(0, enemy.Count);
-
-        Instantiate(enemy[randomEnemy],
-                    spawnPoints[randomPoint].transform.position,
-                    Quaternion.identity);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-
-    void Update()
+    private void Start()
     {
-        
+        SpawnEnemy(); 
+    }
+
+    public void SpawnEnemy()
+    {
+        if (spawnPoints.Count == 0 || enemyPrefabs.Count == 0 || Jugador == null)
+        {
+            Debug.LogWarning("No se puede spawnear enemigo: faltan referencias (spawnPoints, enemyPrefabs o Jugador).");
+            return;
+        }
+
+        int randomPoint = Random.Range(0, spawnPoints.Count);
+        int randomEnemy = Random.Range(0, enemyPrefabs.Count);
+
+        GameObject nuevoEnemigo = Instantiate(
+            enemyPrefabs[randomEnemy],
+            spawnPoints[randomPoint].transform.position,
+            Quaternion.identity
+        );
+
+        Enemy enemyScript = nuevoEnemigo.GetComponent<Enemy>();
+        if (enemyScript != null)
+        {
+            enemyScript.Jugador = Jugador;
+        }
+        else
+        {
+            Debug.LogError("El prefab instanciado no tiene el componente Enemy.");
+        }
     }
 }
