@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI textPoints;
 
+    public GameObject positionWapon;
+
 
     public int points=0;
 
@@ -151,17 +153,15 @@ public class Player : MonoBehaviour
         // Añadir a la lista de armas del jugador
         armas.Add(armaClon);
 
-        // Colocar el arma en la cámara
-        Transform camTransform = transform.Find("Main Camera");
-        Transform positionWeapon = camTransform.Find("Posicion Armas");
 
-        if (positionWeapon != null)
+        if (positionWapon != null)
         {
-            armaClon.transform.SetParent(positionWeapon);
+            armaClon.transform.SetParent(positionWapon.transform);
             armaClon.transform.SetPositionAndRotation(
-                positionWeapon.position,
-                positionWeapon.rotation * Quaternion.Euler(0f, 270f, 0f)
+                positionWapon.transform.position,
+                positionWapon.transform.rotation
             );
+            armaClon.transform.localScale = new Vector3(0.029f, 0.029f, 0.029f);
         }
         else
         {
