@@ -60,8 +60,18 @@ public class Enemy : MonoBehaviour
         {
             playerScript.AddPoints(points); 
         }
-        Spawn.Instance?.SpawnEnemy();
+        if (Spawn.Instance != null && !HasAnyAliveEnemies())
+        {
+            Spawn.Instance.NextWave();
+        }
 
         Destroy(gameObject);
+    }
+
+    private bool HasAnyAliveEnemies()
+    {
+        var enemies = Object.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
+
+        return enemies.Length > 0;
     }
 }
