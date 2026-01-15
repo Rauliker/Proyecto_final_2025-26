@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,8 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent agente;
     private Rigidbody rb;
+
+    public int points = 10;
 
     void Start()
     {
@@ -49,7 +52,26 @@ public class Enemy : MonoBehaviour
 
     void Destruir()
     {
-        Debug.Log("Diana destruida");
+        Debug.Log("Enemigo destruido. Otorgando " + points + " puntos.");
+
+        // Sumar puntos al jugador
+        Player playerScript = Jugador?.GetComponent<Player>();
+        if (playerScript != null)
+        {
+            playerScript.AddPoints(points); 
+        }
+        if (Spawn.Instance != null && !HasAnyAliveEnemies())
+        {
+            Spawn.Instance.NextWave();
+        }
+
         Destroy(gameObject);
+    }
+
+    private bool HasAnyAliveEnemies()
+    {
+        var enemies = Object.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
+
+        return enemies.Length > 0;
     }
 }

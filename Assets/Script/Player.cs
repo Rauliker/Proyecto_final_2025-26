@@ -12,6 +12,11 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI textAmmo;
 
+    public TextMeshProUGUI textPoints;
+
+
+    public int points=0;
+
 
     public int vida = 100;
 
@@ -23,6 +28,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         EquiparArmasIniciales();
+        ActualizarTextPoints();
     }
 
     void EquiparArmasIniciales()
@@ -208,4 +214,21 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void AddPoints(int puntos)
+    {
+        points += puntos;
+        ActualizarTextPoints();
+    }
+
+    void ActualizarTextPoints()
+    {
+        if (textPoints != null)
+        {
+            textPoints.text = LocalizationManager.Instance.GetTranslation("PUNTOS") + ": " + points;
+        }
+        else
+        {
+            Debug.LogWarning("textPoints no asignado en el Inspector.");
+        }
+    }
 }
