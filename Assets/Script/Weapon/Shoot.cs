@@ -7,6 +7,11 @@ public class Shoot : MonoBehaviour
     public float speed = 20f;
     public float bulletGravity = 9.8f;
 
+    public Player player;
+
+    public Camera playerCamera;
+    public float maxDistance = 1000f;
+
     [Header("Munición")] 
     public int clipSize = 10;
     public int ammunition_clip;
@@ -70,7 +75,8 @@ public class Shoot : MonoBehaviour
 
         if (fireMode == FireMode.Single)
         {
-            DispararBala(firePoint.forward);
+            Vector3 baseDirection = GetShootDirection();
+            DispararBala(baseDirection);
         }
         else
         {
@@ -83,14 +89,20 @@ public class Shoot : MonoBehaviour
 
     void DispararBala(Vector3 direccion)
     {
+        player.AnimationShoot();
+        StartCoroutine(CrearBalaDespuesDeDelay(direccion, 0.2f));
+    }
+
+    private IEnumerator CrearBalaDespuesDeDelay(Vector3 direccion, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         GameObject bala = Instantiate(bullet, firePoint.position, firePoint.rotation);
         Rigidbody rb = bala.GetComponent<Rigidbody>();
 
         rb.isKinematic = false;
         rb.useGravity = false;
-
         rb.linearVelocity = direccion * speed;
-        rb.AddForce(Vector3.down * bulletGravity, ForceMode.Acceleration);
 
         Destroy(bala, 5f);
     }
@@ -98,17 +110,23 @@ public class Shoot : MonoBehaviour
 
     void DisparoMultiple()
     {
+        Vector3 baseDirection = GetShootDirection();
+
+
+        Debug.DrawRay(baseDirection, baseDirection * maxDistance, Color.green, 0.1f);
+
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Vector3 direccion = Quaternion.Euler(
                 Random.Range(-spreadAngle, spreadAngle),
                 Random.Range(-spreadAngle, spreadAngle),
                 0f
-            ) * firePoint.forward;
+            ) * baseDirection;
 
             DispararBala(direccion);
         }
     }
+
     public void Recargar()
     {
         if (isReloading || ammunition_clip == maxAmmo || ammo <= 0)
@@ -126,6 +144,7 @@ public class Shoot : MonoBehaviour
 
 
         textReload.text = LocalizationManager.Instance.GetTranslation("RECARGANDO");
+        textReload.enabled = true;
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -142,6 +161,14 @@ public class Shoot : MonoBehaviour
 
         textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
+
+    Vector3 GetShootDirection()
+    {
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+        return ray.direction;
+    }
+
 }
 
 

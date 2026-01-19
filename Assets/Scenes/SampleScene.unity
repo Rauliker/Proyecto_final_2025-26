@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &36927486 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4654361615937024839, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
+  m_PrefabInstance: {fileID: 1737060851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &37393574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -941,6 +946,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1202511645}
     - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1709249486}
+    - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: fireRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: textAmmo
       value: 
       objectReference: {fileID: 1886496438}
@@ -948,6 +961,10 @@ PrefabInstance:
       propertyPath: textReload
       value: 
       objectReference: {fileID: 37393578}
+    - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 36927486}
     - target: {fileID: 5339806943180577778, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: m_Radius
       value: 30
@@ -961,11 +978,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
---- !u!1 &589772915 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7245204613637970937, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
-  m_PrefabInstance: {fileID: 1737060851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &628790396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bb7ae74ac94dc4b9a626efc7829969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawn
-  Jugador: {fileID: 589772915}
+  Jugador: {fileID: 1709249477}
   WaveTexto: {fileID: 2136767326}
   waves:
   - enemyCount: 2
@@ -2020,6 +2032,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1709249486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5777118859178984922, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
+  m_PrefabInstance: {fileID: 1737060851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709249477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9e893a73490694fbfee66c9f11ea30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1001 &1737060851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2034,7 +2057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3703578784160559504, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_Center.y
-      value: 0.9
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4645940736361628581, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_Name
@@ -2131,6 +2154,10 @@ PrefabInstance:
     - target: {fileID: 7750286425796307047, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7934098406955617858, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.049
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

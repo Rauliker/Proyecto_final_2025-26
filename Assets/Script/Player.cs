@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     public GameObject positionWeapon;
 
-    public Animator animator; // ❗ CORREGIDO
+    public Animator animator;
 
     public int points = 0;
     public int vida = 100;
@@ -94,6 +94,8 @@ public class Player : MonoBehaviour
         if (InputDisparo() && armas.Count > 0)
         {
             armas[0].GetComponent<Shoot>()?.Disparar();
+
+
         }
 
         if (Input.GetKeyDown(ToKeyCode(botones.Recargar)) && armas.Count > 0)
@@ -105,6 +107,12 @@ public class Player : MonoBehaviour
         {
             RecogerArma(objetoRecogible);
         }
+    }
+
+    public void AnimationShoot()
+    {
+        animator.SetTrigger("ShootPistol");
+
     }
 
     bool InputDisparo()
