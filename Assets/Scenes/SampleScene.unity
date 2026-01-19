@@ -2028,6 +2028,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 628790398}
     m_Modifications:
+    - target: {fileID: 3703578784160559504, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3703578784160559504, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4645940736361628581, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_Name
       value: Player 1
