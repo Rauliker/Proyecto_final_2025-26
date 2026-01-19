@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 594150172481035549}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.23877, y: 1.003, z: 30.1209}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   vida: 1
   Jugador: {fileID: 3020222832647573766, guid: d547c7e7f123c3c4897cfc546e0a48ca, type: 3}
+  points: 10
 --- !u!195 &1311893139009411188
 NavMeshAgent:
   m_ObjectHideFlags: 0
