@@ -6,5 +6,6 @@
   "Saltar": "Space",
   "Disparar": "Mouse0",
   "Recoger": "E",
-  "Recargar": "R"
+  "Recargar": "R",
+  "Correr": "LeftShift"
 }

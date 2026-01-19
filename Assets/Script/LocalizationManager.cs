@@ -9,7 +9,7 @@ public class LocalizationManager : MonoBehaviour
 {
     public static LocalizationManager Instance;
 
-    public Idioma idiomaActual = Idioma.Español;
+    public Idioma idiomaActual;
 
     public string csvFileName = "localization";
 
@@ -20,6 +20,9 @@ public class LocalizationManager : MonoBehaviour
     private Regex tokenRegex = new Regex(@"\$[a-zA-Z0-9_\.]+");
 
     public BotonesConfig botones;
+
+    public event Action OnLanguageChanged;
+
 
 
     private void Awake()
@@ -42,10 +45,19 @@ public class LocalizationManager : MonoBehaviour
 
     public ConfigData LoadConfig()
     {
-        TextAsset jsonText = Resources.Load<TextAsset>("config");
-        ConfigData configData = JsonUtility.FromJson<ConfigData>(jsonText.text);
-        return configData;
+        string path = Path.Combine(Application.persistentDataPath, "config.json");
+
+        // Si no existe, copiar desde Resources
+        if (!File.Exists(path))
+        {
+            TextAsset defaultConfig = Resources.Load<TextAsset>("config");
+            File.WriteAllText(path, defaultConfig.text);
+        }
+
+        string jsonText = File.ReadAllText(path);
+        return JsonUtility.FromJson<ConfigData>(jsonText);
     }
+
 
     // Carga config.json
     private void ApllyConfig()
@@ -61,16 +73,22 @@ public class LocalizationManager : MonoBehaviour
     // Función para editar config.json
     public void SaveConfig(Idioma nuevoIdioma)
     {
-        ConfigData configData = new ConfigData();
-        configData.Idioma = nuevoIdioma == Idioma.Español ? "Español" : "Inglés";
+        ConfigData configData = new ConfigData
+        {
+            Idioma = nuevoIdioma == Idioma.Español ? "Español" : "Inglés"
+        };
 
-        string jsonText = JsonUtility.ToJson(configData, true);
-        File.WriteAllText("config", jsonText);
+        string path = Path.Combine(Application.persistentDataPath, "config.json");
+        File.WriteAllText(path, JsonUtility.ToJson(configData, true));
 
         idiomaActual = nuevoIdioma;
 
-        Debug.Log("Config actualizado. Nuevo idioma: " + configData.Idioma);
+        Debug.Log("Idioma actualizado en tiempo real: " + configData.Idioma);
+
+        OnLanguageChanged?.Invoke();
     }
+
+
 
     private void LoadJson()
     {
@@ -170,6 +188,7 @@ public class LocalizationManager : MonoBehaviour
 
         return texto;
     }
+
 
     [System.Serializable]
     public class ConfigData

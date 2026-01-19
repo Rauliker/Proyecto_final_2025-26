@@ -9,4 +9,5 @@ public class BotonesConfig
     public string Disparar;
     public string Recoger;
     public string Recargar;
+    public string Correr;
 }

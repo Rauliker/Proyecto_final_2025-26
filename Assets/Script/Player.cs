@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -11,15 +11,13 @@ public class Player : MonoBehaviour
     public BotonesConfig botones;
 
     public TextMeshProUGUI textAmmo;
-
     public TextMeshProUGUI textPoints;
 
-    public GameObject positionWapon;
+    public GameObject positionWeapon;
 
+    public Animator animator; // ‚ùó CORREGIDO
 
-    public int points=0;
-
-
+    public int points = 0;
     public int vida = 100;
 
     void Awake()
@@ -27,6 +25,7 @@ public class Player : MonoBehaviour
         movimiento = GetComponent<PlayerMovement3D>();
         CargarBotones();
     }
+
     void Start()
     {
         EquiparArmasIniciales();
@@ -35,42 +34,39 @@ public class Player : MonoBehaviour
 
     void EquiparArmasIniciales()
     {
-        if (armas.Count == 0) return; // Si no hay armas, no hacemos nada
+        if (armas.Count == 0) return;
 
         Transform camTransform = transform.Find("Main Camera");
-        Transform positionWeapon = camTransform.Find("Posicion Armas");
+        if (camTransform == null) return;
 
-        // Creamos una lista temporal para reemplazar los originales por clones
+        Transform posArmas = camTransform.Find("Posicion Armas");
+        if (posArmas == null) return;
+
         List<GameObject> armasClonadas = new List<GameObject>();
 
         foreach (GameObject arma in armas)
         {
             if (arma == null) continue;
 
-            // Creamos un clon del arma
             GameObject armaClon = Instantiate(arma);
-
-            // La equipamos
-            armaClon.transform.SetParent(positionWeapon);
-            armaClon.transform.SetPositionAndRotation(
-                positionWeapon.position,
-                positionWeapon.rotation * Quaternion.Euler(0f, 270f, 0f)
+            armaClon.transform.SetParent(posArmas);
+            armaClon.transform.SetLocalPositionAndRotation(
+                Vector3.zero,
+                Quaternion.Euler(0f, 270f, 0f)
             );
 
-            // Desactivamos el collider para que no interfiera
-            armaClon.GetComponent<Collider>().enabled = false;
+            Collider col = armaClon.GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+
+            Recoger recoger = armaClon.GetComponent<Recoger>();
+            if (recoger != null) recoger.enabled = false;
 
             armasClonadas.Add(armaClon);
         }
 
-        // Reemplazamos la lista original por los clones
         armas = armasClonadas;
-
-        Debug.Log("Armas iniciales equipadas correctamente (con clones).");
+        Debug.Log("Armas iniciales equipadas.");
     }
-
-   
-
 
     void CargarBotones()
     {
@@ -78,141 +74,109 @@ public class Player : MonoBehaviour
         if (jsonText != null)
         {
             botones = JsonUtility.FromJson<BotonesConfig>(jsonText.text);
-            Debug.Log("Botones cargados correctamente " + botones);
         }
         else
         {
-            Debug.LogError("No se pudo cargar el archivo botones.json");
+            Debug.LogError("No se pudo cargar botones.json");
         }
     }
 
     void Update()
     {
-        // Movimiento
         Vector2 input = ObtenerInputMovimiento();
         bool jump = Input.GetKeyDown(ToKeyCode(botones.Saltar));
-        movimiento.Move(input, jump);
+        bool sprint = Input.GetKey(ToKeyCode(botones.Correr));
 
-        // Disparar
-        if (botones.Disparar.StartsWith("Mouse"))
-        {
-            int botonMouse = int.Parse(botones.Disparar.Substring(5));
-            if (Input.GetMouseButtonDown(botonMouse) && armas.Count > 0)
-                armas[0].GetComponent<Shoot>()?.Disparar();
-        }
-        else
-        {
-            if (Input.GetKeyDown(ToKeyCode(botones.Disparar)) && armas.Count > 0)
-                armas[0].GetComponent<Shoot>()?.Disparar();
-        }
+        movimiento.Move(input, jump, sprint);
+        ActualizarAnimaciones(input, sprint, jump);
 
-        // Recoger arma
-        if (Input.GetKeyDown(ToKeyCode(botones.Recoger)) && objetoRecogible != null)
+
+        if (InputDisparo() && armas.Count > 0)
         {
-            RecogerArma(objetoRecogible);
+            armas[0].GetComponent<Shoot>()?.Disparar();
         }
 
         if (Input.GetKeyDown(ToKeyCode(botones.Recargar)) && armas.Count > 0)
         {
             armas[0].GetComponent<Shoot>()?.Recargar();
         }
+
+        if (Input.GetKeyDown(ToKeyCode(botones.Recoger)) && objetoRecogible != null)
+        {
+            RecogerArma(objetoRecogible);
+        }
     }
 
-    public void SetObjetoRecogible(Recoger recoger)
+    bool InputDisparo()
     {
-        objetoRecogible = recoger;
-    }
+        if (botones.Disparar.StartsWith("Mouse"))
+        {
+            int boton = int.Parse(botones.Disparar.Replace("Mouse", ""));
+            return Input.GetMouseButtonDown(boton);
+        }
 
-    public void ClearObjetoRecogible(Recoger recoger)
-    {
-        if (objetoRecogible == recoger)
-            objetoRecogible = null;
+        return Input.GetKeyDown(ToKeyCode(botones.Disparar));
     }
 
     void RecogerArma(Recoger recoger)
     {
-        GameObject armaOriginal = recoger.gameObject;
+        GameObject armaClon = Instantiate(recoger.gameObject);
 
-        // CLONAR EL OBJETO 
-        GameObject armaClon = Instantiate(armaOriginal);
+        armaClon.transform.SetParent(positionWeapon.transform);
+        armaClon.transform.localPosition = Vector3.zero;
+        armaClon.transform.localRotation = Quaternion.identity;
+        armaClon.transform.localScale = Vector3.one * 0.03f;
 
-        // PosiciÛn inicial del clon
-        armaClon.transform.position = armaOriginal.transform.position;
-        armaClon.transform.rotation = armaOriginal.transform.rotation;
+        Collider col = armaClon.GetComponent<Collider>();
+        if (col != null) col.enabled = false;
 
-        // Desactivar collider del clon
-        Collider colliderClon = armaClon.GetComponent<Collider>();
-        if (colliderClon != null)
-            colliderClon.enabled = false;
+        recoger.enabled = false;
 
-        // Desactivar Recoger en el clon
-        Recoger recogerClon = armaClon.GetComponent<Recoger>();
-        if (recogerClon != null)
-            recogerClon.enabled = false;
-
-        // AÒadir a la lista de armas del jugador
         armas.Add(armaClon);
-
-
-        if (positionWapon != null)
-        {
-            armaClon.transform.SetParent(positionWapon.transform);
-            armaClon.transform.SetPositionAndRotation(
-                positionWapon.transform.position,
-                positionWapon.transform.rotation
-            );
-            armaClon.transform.localScale = new Vector3(0.029f, 0.029f, 0.029f);
-        }
-        else
-        {
-            Debug.LogError("No se encontrÛ el transform 'Posicion Armas' en la c·mara.");
-        }
-
         objetoRecogible = null;
         textAmmo.enabled = true;
-        Debug.Log("Arma clonada. El arma original permanece en el mundo.");
     }
-
 
     Vector2 ObtenerInputMovimiento()
     {
-        float x = 0f, z = 0f;
-        if (Input.GetKey(ToKeyCode(botones.MoverArriba))) z += 1f;
-        if (Input.GetKey(ToKeyCode(botones.MoverAbajo))) z -= 1f;
-        if (Input.GetKey(ToKeyCode(botones.MoverDerecha))) x += 1f;
-        if (Input.GetKey(ToKeyCode(botones.MoverIzquierda))) x -= 1f;
+        float x = 0, z = 0;
+
+        if (Input.GetKey(ToKeyCode(botones.MoverArriba))) z++;
+        if (Input.GetKey(ToKeyCode(botones.MoverAbajo))) z--;
+        if (Input.GetKey(ToKeyCode(botones.MoverDerecha))) x++;
+        if (Input.GetKey(ToKeyCode(botones.MoverIzquierda))) x--;
+
         return new Vector2(x, z).normalized;
     }
 
     KeyCode ToKeyCode(string tecla)
     {
-        try
-        {
-            return (KeyCode)System.Enum.Parse(typeof(KeyCode), tecla, true);
-        }
-        catch
-        {
-            Debug.LogError("Tecla inv·lida: " + tecla);
-            return KeyCode.None;
-        }
+        if (System.Enum.TryParse(tecla, true, out KeyCode key))
+            return key;
+
+        Debug.LogError("Tecla inv√°lida: " + tecla);
+        return KeyCode.None;
     }
 
     public void RecibirDanio(int danio)
     {
         vida -= danio;
-        Debug.Log("Diana golpeada. Vida restante: " + vida);
 
         if (vida <= 0)
         {
-            Destruir();
+            Destroy(gameObject);
         }
     }
 
-    void Destruir()
+    void ActualizarAnimaciones(Vector2 input, bool isSprinting, bool isJumping)
     {
-        Debug.Log("Diana destruida");
-        Destroy(gameObject);
+        float speed = input.magnitude;
+
+        animator.SetFloat("Speed", speed);
+        animator.SetBool("Jumping", isJumping);
+        animator.SetBool("IsRunning", isSprinting && speed > 0.1f);
     }
+
 
     public void AddPoints(int puntos)
     {
@@ -226,9 +190,13 @@ public class Player : MonoBehaviour
         {
             textPoints.text = LocalizationManager.Instance.GetTranslation("PUNTOS") + ": " + points;
         }
-        else
-        {
-            Debug.LogWarning("textPoints no asignado en el Inspector.");
-        }
+    }
+
+    public void SetObjetoRecogible(Recoger recoger) => objetoRecogible = recoger;
+
+    public void ClearObjetoRecogible(Recoger recoger)
+    {
+        if (objetoRecogible == recoger)
+            objetoRecogible = null;
     }
 }

@@ -1,25 +1,46 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
-public class CambiarTexto : MonoBehaviour
+[RequireComponent(typeof(TextMeshProUGUI))]
+public class LocalizedTextTMP : MonoBehaviour
 {
-
+    [Tooltip("Texto base para generar la key en el CSV")]
     public string texto;
 
-    void Start()
+    private TextMeshProUGUI textoTMP;
+
+    private void Awake()
     {
-        string resultado = texto.ToUpper().Replace(" ", "");
-        
+        textoTMP = GetComponent<TextMeshProUGUI>();
+    }
 
-        TextMeshProUGUI textoTMP = transform.GetComponent<TextMeshProUGUI>();
-        if (textoTMP == null)
-        {
-            Debug.LogError("No se encontró un componente TextMeshProUGUI en 'Text (TMP)'");
-            return;
-        }
+    private void OnEnable()
+    {
+        // Suscribirse al evento de cambio de idioma
+        if (LocalizationManager.Instance != null)
+            LocalizationManager.Instance.OnLanguageChanged += RefreshText;
 
-        string recoger = LocalizationManager.Instance.GetTranslation(resultado);
-        textoTMP.text = recoger;
+        RefreshText();
+    }
+
+    private void OnDisable()
+    {
+        if (LocalizationManager.Instance != null)
+            LocalizationManager.Instance.OnLanguageChanged -= RefreshText;
+    }
+
+    public void RefreshText()
+    {
+        if (textoTMP == null) return;
+
+        // Generar la key del CSV
+        string key = texto.ToUpper().Replace(" ", "");
+
+        // Obtener la traducción
+        string traducido = LocalizationManager.Instance.GetTranslation(key);
+
+        // Asignar al TextMeshProUGUI
+        textoTMP.text = traducido;
         textoTMP.enabled = true;
     }
 }
