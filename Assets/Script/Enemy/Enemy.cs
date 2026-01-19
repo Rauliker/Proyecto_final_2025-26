@@ -12,6 +12,9 @@ public class Enemy : MonoBehaviour
 
     public int points = 10;
 
+    public Animator animator;
+
+
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
