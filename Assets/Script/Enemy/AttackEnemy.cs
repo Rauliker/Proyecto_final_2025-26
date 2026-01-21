@@ -3,52 +3,64 @@ using System.Collections;
 
 public class AttackEnemy : MonoBehaviour
 {
-    public Enemy enemy;     
-    public Player player;   
+    public Enemy enemy;
+    public Player player;
+    public GameObject hitbox;
 
-    private bool atacando = false;
-    private Coroutine ataqueCoroutine;
+    private bool isAttacking = false;
+    private Coroutine attackCoroutine;
 
     void Start()
     {
-        if (enemy != null && enemy.Jugador != null)
+        if (player == null && enemy != null && enemy.Jugador != null)
         {
             player = enemy.Jugador.GetComponent<Player>();
         }
+
+        if (hitbox != null)
+            hitbox.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !atacando)
+        if (other.CompareTag("Player") && !isAttacking)
         {
-            atacando = true;
-            ataqueCoroutine = StartCoroutine(AtacarCadaSegundo());
+            isAttacking = true;
+
+            if (hitbox != null && !hitbox.activeSelf)
+                hitbox.SetActive(true);
+
+            attackCoroutine = StartCoroutine(AttackEverySecond());
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && atacando)
+        if (other.CompareTag("Player") && isAttacking)
         {
-            atacando = false;
-            if (ataqueCoroutine != null)
+            isAttacking = false;
+
+            if (hitbox != null && hitbox.activeSelf)
+                hitbox.SetActive(false);
+
+            if (attackCoroutine != null)
             {
-                StopCoroutine(ataqueCoroutine);
+                StopCoroutine(attackCoroutine);
+                attackCoroutine = null;
             }
         }
     }
 
-    IEnumerator AtacarCadaSegundo()
+    IEnumerator AttackEverySecond()
     {
-        while (atacando)
+        while (isAttacking)
         {
             if (enemy == null || player == null)
                 yield break;
 
-            enemy.Attack(); 
-            yield return player.RecibirDanio(enemy.dano, 0f); 
+            enemy.Attack(player);
 
-            yield return new WaitForSeconds(1f); 
+            yield return new WaitForSeconds(1f);
         }
     }
 }

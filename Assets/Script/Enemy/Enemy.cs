@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,26 +5,23 @@ public class Enemy : MonoBehaviour
 {
     public int vida = 100;
     public GameObject Jugador;
+    public int points = 10;
+    public int dano = 10;
+    public Animator animator;
 
     private NavMeshAgent agente;
     private Rigidbody rb;
-
-    public int points = 10;
-
-    public Animator animator;
-
-    public int dano=10;
-
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
 
-        // Activamos la gravedad del Rigidbody
         rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.FreezeRotation; // Evita que se caiga girando
-        agente.speed = 5f;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        if (agente != null)
+            agente.speed = 5f;
     }
 
     void Update()
@@ -35,9 +31,8 @@ public class Enemy : MonoBehaviour
 
     void SeguirJugador()
     {
-        if (Jugador != null && agente.isOnNavMesh)
+        if (Jugador != null && agente != null && agente.isOnNavMesh)
         {
-            // Calculamos destino solo en XZ
             Vector3 destino = Jugador.transform.position;
             destino.y = transform.position.y;
             agente.SetDestination(destino);
@@ -47,28 +42,22 @@ public class Enemy : MonoBehaviour
     public void RecibirDanio(int danio)
     {
         vida -= danio;
-        Debug.Log("Diana golpeada. Vida restante: " + vida);
+        Debug.Log("Enemigo golpeado. Vida restante: " + vida);
 
         if (vida <= 0)
-        {
             Destruir();
-        }
     }
 
     void Destruir()
     {
         Debug.Log("Enemigo destruido. Otorgando " + points + " puntos.");
 
-        // Sumar puntos al jugador
         Player playerScript = Jugador?.GetComponent<Player>();
         if (playerScript != null)
-        {
-            playerScript.AddPoints(points); 
-        }
+            playerScript.AddPoints(points);
+
         if (Spawn.Instance != null && !HasAnyAliveEnemies())
-        {
             Spawn.Instance.NextWave();
-        }
 
         Destroy(gameObject);
     }
@@ -76,12 +65,13 @@ public class Enemy : MonoBehaviour
     private bool HasAnyAliveEnemies()
     {
         var enemies = Object.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
-
         return enemies.Length > 0;
     }
 
-    public void Attack()
+    // Método de ataque
+    public void Attack(Player target)
     {
-        animator.SetTrigger("a");
+        if (animator != null)
+            animator.SetTrigger("a");
     }
 }
