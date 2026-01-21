@@ -55,17 +55,17 @@ public class Enemy : MonoBehaviour
         Player playerScript = Jugador?.GetComponent<Player>();
         if (playerScript != null)
             playerScript.AddPoints(points);
-
-        if (Spawn.Instance != null && !HasAnyAliveEnemies())
+        
+        if (0== HasAnyAliveEnemies())
             Spawn.Instance.NextWave();
 
         Destroy(gameObject);
     }
 
-    private bool HasAnyAliveEnemies()
+    private int HasAnyAliveEnemies()
     {
         var enemies = Object.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
-        return enemies.Length > 0;
+        return enemies.Length - 1;
     }
 
     // Método de ataque

@@ -34,17 +34,19 @@ public class Spawn : MonoBehaviour
 
     public void SpawnAllEnemiesInWave()
     {
-        if (ActualWave <= 0 || ActualWave > waves.Count)
+        int waveIndex = GetCurrentWaveIndex();
+
+        if (waves.Count == 0)
         {
-            Debug.LogError($"Ola {ActualWave} no existe. Verifica que tienes al menos {ActualWave} olas definidas.");
+            Debug.LogError("No hay oleadas definidas.");
             return;
         }
 
-        WaveData currentWave = waves[ActualWave - 1];
+        WaveData currentWave = waves[waveIndex];
 
         if (currentWave.SpawnPoints == null || currentWave.SpawnPoints.Count == 0)
         {
-            Debug.LogWarning($"No hay puntos de spawn definidos para la ola {ActualWave}.");
+            Debug.LogWarning($"No hay puntos de spawn definidos para la oleada {ActualWave}.");
             return;
         }
 
@@ -71,7 +73,6 @@ public class Spawn : MonoBehaviour
                 Quaternion.identity
             );
 
-
             Enemy enemyScript = nuevoEnemigo.GetComponent<Enemy>();
             if (enemyScript != null)
             {
@@ -82,23 +83,37 @@ public class Spawn : MonoBehaviour
                 Debug.LogError("El prefab instanciado no tiene el componente Enemy.");
             }
         }
+    }
 
+    private int GetCurrentWaveIndex()
+    {
+        if (waves.Count == 0) return 0;
+
+        if (ActualWave <= waves.Count)
+        {
+            return ActualWave - 1;
+        }
+        else
+        {
+            return waves.Count - 1;
+        }
     }
 
     private void UpdateWaveText()
     {
         if (WaveTexto != null)
         {
-            WaveTexto.text = LocalizationManager.Instance.GetTranslation("OLEADA") + " " + ActualWave.ToString();
+            string waveText = LocalizationManager.Instance.GetTranslation("OLEADA") + " " + ActualWave.ToString();
+
+            
+            WaveTexto.text = waveText;
         }
     }
 
     public void NextWave()
     {
-        if (ActualWave < waves.Count)
-        {
-            ActualWave++;
-        }
+        ActualWave++;
+
         SpawnAllEnemiesInWave();
         UpdateWaveText();
     }

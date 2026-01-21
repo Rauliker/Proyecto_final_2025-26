@@ -63,7 +63,7 @@ public class LocalizationManager : MonoBehaviour
     private void ApllyConfig()
     {
         ConfigData configData = LoadConfig();
-        if (configData.Idioma == "Español")
+        if (configData.Idioma == "Espanol")
             idiomaActual = (Idioma)Enum.Parse(typeof(Idioma), configData.Idioma, true);
         else
             idiomaActual = Idioma.Ingles; 
@@ -75,7 +75,7 @@ public class LocalizationManager : MonoBehaviour
     {
         ConfigData configData = new ConfigData
         {
-            Idioma = nuevoIdioma == Idioma.Español ? "Español" : "Inglés"
+            Idioma = nuevoIdioma == Idioma.Espanol ? "Espanol" : "Inglés"
         };
 
         string path = Path.Combine(Application.persistentDataPath, "config.json");
@@ -167,7 +167,7 @@ public class LocalizationManager : MonoBehaviour
         if (traducciones.ContainsKey(key))
         {
             string[] row = traducciones[key];
-            int idiomaIndex = idiomaActual == Idioma.Español ? 1 : 2;
+            int idiomaIndex = idiomaActual == Idioma.Espanol ? 1 : 2;
             if (idiomaIndex >= row.Length)
                 return key;
 

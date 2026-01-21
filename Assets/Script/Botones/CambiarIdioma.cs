@@ -19,7 +19,7 @@ public class CambiarIdioma : MonoBehaviour
     {
         idiomasDisponibles = new List<Idioma>
         {
-            Idioma.Español,
+            Idioma.Espanol,
             Idioma.Ingles
         };
     }
@@ -33,7 +33,7 @@ public class CambiarIdioma : MonoBehaviour
         foreach (Idioma idioma in idiomasDisponibles)
         {
             // Mapeamos explícitamente los nombres a mostrar
-            string nombreAMostrar = idioma == Idioma.Español ? "Español" : "English";
+            string nombreAMostrar = idioma == Idioma.Espanol ? "Español" : "English";
             opciones.Add(nombreAMostrar);
         }
 
@@ -53,6 +53,6 @@ public class CambiarIdioma : MonoBehaviour
 
         LocalizationManager.Instance.SaveConfig(idiomaSeleccionado);
 
-        Debug.Log("Idioma cambiado a: " + (idiomaSeleccionado == Idioma.Español ? "Español" : "English"));
+        Debug.Log("Idioma cambiado a: " + (idiomaSeleccionado == Idioma.Espanol ? "Espanol" : "English"));
     }
 }

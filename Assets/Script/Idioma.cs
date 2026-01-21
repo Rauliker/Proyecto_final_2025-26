@@ -1,5 +1,5 @@
 public enum Idioma
 {
-    Español,
+    Espanol,
     Ingles
 }

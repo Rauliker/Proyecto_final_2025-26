@@ -657,7 +657,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 182089406264657021, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: m_Name
-      value: H&K USP 45 Game 1
+      value: Pistol
       objectReference: {fileID: 0}
     - target: {fileID: 182089406264657021, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: m_IsActive
