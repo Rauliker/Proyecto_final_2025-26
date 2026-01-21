@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
 
+
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
@@ -76,5 +77,10 @@ public class Enemy : MonoBehaviour
         var enemies = Object.FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
 
         return enemies.Length > 0;
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger("a");
     }
 }
