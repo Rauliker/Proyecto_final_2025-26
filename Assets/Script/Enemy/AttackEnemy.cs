@@ -1,22 +1,54 @@
 using UnityEngine;
+using System.Collections;
 
 public class AttackEnemy : MonoBehaviour
 {
-    public Enemy enemy;
+    public Enemy enemy;     
+    public Player player;   
 
-    public Collider SphereDetection;
+    private bool atacando = false;
+    private Coroutine ataqueCoroutine;
 
-    public void OnTriggerEnter(Collider other)
+    void Start()
     {
-        if (enemy == null)
+        if (enemy != null && enemy.Jugador != null)
         {
-            return;
+            player = enemy.Jugador.GetComponent<Player>();
         }
+    }
 
-        if (other.CompareTag("Player"))
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !atacando)
         {
+            atacando = true;
+            ataqueCoroutine = StartCoroutine(AtacarCadaSegundo());
+        }
+    }
 
-            enemy.Attack();
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") && atacando)
+        {
+            atacando = false;
+            if (ataqueCoroutine != null)
+            {
+                StopCoroutine(ataqueCoroutine);
+            }
+        }
+    }
+
+    IEnumerator AtacarCadaSegundo()
+    {
+        while (atacando)
+        {
+            if (enemy == null || player == null)
+                yield break;
+
+            enemy.Attack(); 
+            yield return player.RecibirDanio(enemy.dano, 0f); 
+
+            yield return new WaitForSeconds(1f); 
         }
     }
 }

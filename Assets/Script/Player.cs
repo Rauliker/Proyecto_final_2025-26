@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
     public GameObject positionWeapon;
 
     public Animator animator;
+    
 
     public int points = 0;
     public int vida = 100;
@@ -166,13 +169,17 @@ public class Player : MonoBehaviour
         return KeyCode.None;
     }
 
-    public void RecibirDanio(int danio)
+    public IEnumerator RecibirDanio(int danio, float delay)
     {
+
+
+        yield return new WaitForSeconds(delay);
         vida -= danio;
 
         if (vida <= 0)
         {
-            Destroy(gameObject);
+            EndLevel.Instance.FinishGame(points);
+
         }
     }
 

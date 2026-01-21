@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackEnemy
   enemy: {fileID: 6741320592538029048}
   SphereDetection: {fileID: 6970138101131671653}
+  player: {fileID: 0}
 --- !u!1001 &148045243411943228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   Jugador: {fileID: 0}
   points: 10
   animator: {fileID: 7259629114987943110}
+  dano: 10
 --- !u!95 &7259629114987943110
 Animator:
   serializedVersion: 7
@@ -254,7 +256,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066402638449111661}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c37782f3c99a9144fa973df6c392d900, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 04cda3d3bf3c20d4aba7cad2b89e0ab4, type: 3}
   m_Controller: {fileID: 9100000, guid: e966e5f7b0831e343a4ca170f8e8c11f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
