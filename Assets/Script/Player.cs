@@ -96,17 +96,18 @@ public class Player : MonoBehaviour
 
             if (shoot.fireMode == Shoot.FireMode.Single)
             {
-                if (InputDisparo() && Input.GetMouseButtonDown(0))
+                if (InputDownDisparo())
                     shoot.Disparar();
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+     
+                if (InputDownDisparo())
                 {
                     shoot.StartShooting();
                 }
 
-                if (Input.GetMouseButtonUp(0))
+                if (InputDownDisparo())
                 {
                     shoot.StopShooting();
                 }
@@ -144,6 +145,26 @@ public class Player : MonoBehaviour
         }
 
         return Input.GetKey(ToKeyCode(botones.Disparar)); 
+    }
+    bool InputDownDisparo()
+    {
+        if (botones.Disparar.StartsWith("Mouse"))
+        {
+            int boton = int.Parse(botones.Disparar.Replace("Mouse", ""));
+            return Input.GetMouseButtonDown(boton);
+        }
+
+        return Input.GetKey(ToKeyCode(botones.Disparar));
+    }
+    bool InputUpDisparo()
+    {
+        if (botones.Disparar.StartsWith("Mouse"))
+        {
+            int boton = int.Parse(botones.Disparar.Replace("Mouse", ""));
+            return Input.GetMouseButtonUp(boton);
+        }
+
+        return Input.GetKey(ToKeyCode(botones.Disparar));
     }
 
     GameObject ObtenerArmaConTag(string tag)

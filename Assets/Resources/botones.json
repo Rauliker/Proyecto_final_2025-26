@@ -8,5 +8,6 @@
   "Recoger": "E",
   "Recargar": "R",
   "Correr": "LeftShift",
-  "Anadir": "N"
+  "Anadir": "N",
+  "Apuntar": "RightShift"
 }

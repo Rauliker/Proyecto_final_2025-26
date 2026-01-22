@@ -9,6 +9,8 @@ public class Spawn : MonoBehaviour
     public GameObject Jugador;
     public TextMeshProUGUI WaveTexto;
 
+    public float aumentoVida = 0.00f;
+
     private int ActualWave;
     public List<WaveData> waves = new List<WaveData>();
     public List<GameObject> enemyPrefabs = new List<GameObject>();
@@ -74,6 +76,8 @@ public class Spawn : MonoBehaviour
             );
 
             Enemy enemyScript = nuevoEnemigo.GetComponent<Enemy>();
+            int aumento = Mathf.Max(1, Mathf.RoundToInt(enemyScript.vida * aumentoVida));
+            enemyScript.vida += aumento;
             if (enemyScript != null)
             {
                 enemyScript.Jugador = Jugador;
@@ -105,7 +109,6 @@ public class Spawn : MonoBehaviour
         {
             string waveText = LocalizationManager.Instance.GetTranslation("OLEADA") + " " + ActualWave.ToString();
 
-            
             WaveTexto.text = waveText;
         }
     }
@@ -113,6 +116,7 @@ public class Spawn : MonoBehaviour
     public void NextWave()
     {
         ActualWave++;
+        aumentoVida += 0.1f;
 
         SpawnAllEnemiesInWave();
         UpdateWaveText();
