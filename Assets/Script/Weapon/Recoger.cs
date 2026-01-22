@@ -1,58 +1,60 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Recoger : MonoBehaviour
 {
     private Player playerEnRango;
     public TextMeshProUGUI texto;
+    public int puntos = 10;
+    public int ammo = 10;
+    public TiposArmas tipoArma = TiposArmas.PISTOLA;
 
-    public TiposArmas tipoArma=TiposArmas.PISTOLA;
+    public bool tieneArma=false; 
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
         playerEnRango = other.GetComponent<Player>();
-
-        if (playerEnRango == null)
-        {
-            Debug.LogError("El objeto Player no tiene el componente Player");
-            return;
-        }
+        if (playerEnRango == null) return;
 
         playerEnRango.SetObjetoRecogible(this);
 
-        if (texto == null)
+        if (tieneArma == true)
         {
-            Debug.LogError("Texto no asignado en el Inspector");
-            return;
-        }
+            string municion = LocalizationManager.Instance.GetTranslation("MUNICION");
 
-        if (LocalizationManager.Instance == null)
+            string textopuntos = LocalizationManager.Instance.GetTranslation("PUNTOS");
+            texto.text = $"{municion} {puntos} {textopuntos}";
+        } else
         {
-            Debug.LogError("LocalizationManager.Instance es NULL");
-            return;
+            string recoger = LocalizationManager.Instance.GetTranslation("RECOGER_ARMA");
+            string armaTexto = LocalizationManager.Instance.GetTranslation(tipoArma.ToString());
+            texto.text = $"{recoger} {armaTexto}";
         }
-
-        string recoger = LocalizationManager.Instance.GetTranslation("RECOGER_ARMA");
-        string arma = LocalizationManager.Instance.GetTranslation(tipoArma.ToString());
-
-        texto.text = $"{recoger} {arma}";
         texto.enabled = true;
+    }
+
+
+    public void ActualizarTieneArma()
+    {
+        tieneArma = true;
+
+        string municion = LocalizationManager.Instance.GetTranslation("MUNICION");
+
+        string puntos = LocalizationManager.Instance.GetTranslation("PUNTOS");
+        texto.text = $"{municion} {puntos} {puntos}";
+
+        texto.enabled = true;
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        DissableText(other);
-    }
+        if (!other.CompareTag("Player")) return;
 
-    public void DissableText(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerEnRango.ClearObjetoRecogible(this);
-            playerEnRango = null;
-            texto.enabled = false;
-        }
+        playerEnRango.ClearObjetoRecogible(this);
+        playerEnRango = null;
+        texto.enabled = false;
     }
 }

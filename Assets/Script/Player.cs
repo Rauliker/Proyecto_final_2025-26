@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
         foreach (GameObject arma in armas)
         {
             if (arma == null) continue;
-
             GameObject armaClon = Instantiate(arma);
             armaClon.transform.SetParent(posArmas);
             armaClon.transform.SetLocalPositionAndRotation(
@@ -58,11 +57,9 @@ public class Player : MonoBehaviour
                 Quaternion.Euler(0f, 270f, 0f)
             );
 
-            Collider col = armaClon.GetComponent<Collider>();
-            if (col != null) col.enabled = false;
-
             Recoger recoger = armaClon.GetComponent<Recoger>();
             if (recoger != null) recoger.enabled = false;
+            
 
             armasClonadas.Add(armaClon);
         }
@@ -129,10 +126,44 @@ public class Player : MonoBehaviour
         return Input.GetKeyDown(ToKeyCode(botones.Disparar));
     }
 
+    GameObject ObtenerArmaConTag(string tag)
+    {
+        foreach (GameObject arma in armas)
+        {
+            if (arma != null && arma.CompareTag(tag))
+            {
+                return arma;
+            }
+        }
+        return null;
+    }
+
+
+
     void RecogerArma(Recoger recoger)
     {
-        GameObject armaClon = Instantiate(recoger.gameObject);
+        GameObject armaExistente = ObtenerArmaConTag(recoger.gameObject.tag);
 
+        if (armaExistente != null)
+        {
+            if ((points - recoger.puntos)<0) return;
+            Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
+            int totalmunicion= armaExistenteDisparo.ammo + recoger.ammo;
+            if (totalmunicion >= armaExistenteDisparo.maxAmmo)
+            {
+                totalmunicion = armaExistenteDisparo.maxAmmo;
+            }
+            armaExistenteDisparo.ammo = totalmunicion;
+
+            armaExistenteDisparo.ActualizarTexto();
+            AddPoints(-recoger.puntos);
+            return;
+        }
+
+
+        recoger.ActualizarTieneArma();
+
+        GameObject armaClon = Instantiate(recoger.gameObject);
         armaClon.transform.SetParent(positionWeapon.transform);
         armaClon.transform.localPosition = Vector3.zero;
         armaClon.transform.localRotation = Quaternion.identity;

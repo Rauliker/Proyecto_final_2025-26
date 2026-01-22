@@ -83,6 +83,12 @@ public class Shoot : MonoBehaviour
             DisparoMultiple();
         }
 
+        ActualizarTexto();
+    }
+
+
+    public void ActualizarTexto()
+    {
         textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
 
