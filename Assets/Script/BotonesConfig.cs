@@ -10,4 +10,5 @@ public class BotonesConfig
     public string Recoger;
     public string Recargar;
     public string Correr;
+    public string Anadir;
 }

@@ -5,7 +5,11 @@ public class Recoger : MonoBehaviour
 {
     private Player playerEnRango;
     public TextMeshProUGUI texto;
+
+    public TextMeshProUGUI textoAumentar;
     public int puntos = 10;
+    public int puntosAumentar = 10;
+    public int aumentoDano = 10;
     public int ammo = 100;
     public TiposArmas tipoArma = TiposArmas.PISTOLA;
 
@@ -22,10 +26,14 @@ public class Recoger : MonoBehaviour
 
         if (tieneArma == true)
         {
+            tieneArma = true;
+
             string municion = LocalizationManager.Instance.GetTranslation("MUNICION");
 
-            string textopuntos = LocalizationManager.Instance.GetTranslation("PUNTOS");
-            texto.text = $"{municion} {puntos} {textopuntos}";
+            string puntosTexto = LocalizationManager.Instance.GetTranslation("PUNTOS");
+            texto.text = $"{municion} {puntos} {puntosTexto}";
+            textoAumentar.enabled = true;
+            textoAumentar.text = $"{LocalizationManager.Instance.GetTranslation("AUMENTAR_DANO")} {puntosAumentar} {puntosTexto}";
         } else
         {
             string recoger = LocalizationManager.Instance.GetTranslation("RECOGER_ARMA");
@@ -44,7 +52,8 @@ public class Recoger : MonoBehaviour
 
         string puntosTexto = LocalizationManager.Instance.GetTranslation("PUNTOS");
         texto.text = $"{municion} {puntos} {puntosTexto}";
-
+        textoAumentar.enabled = true;
+        textoAumentar.text = $"{LocalizationManager.Instance.GetTranslation("AUMENTAR_DANO")} {puntosAumentar} {puntosTexto}";
         texto.enabled = true;
 
     }
@@ -56,5 +65,6 @@ public class Recoger : MonoBehaviour
         playerEnRango.ClearObjetoRecogible(this);
         playerEnRango = null;
         texto.enabled = false;
+        textoAumentar.enabled = false;
     }
 }

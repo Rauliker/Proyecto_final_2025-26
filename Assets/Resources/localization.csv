@@ -11,3 +11,4 @@ OLEADA,Oleada,Wave
 TIENESPUNTOS,Tienes,You have
 PUNTOS,puntos,points
 MUNICION,Pulsa $boton.recoger para añadir munición usando,Press $boton.recoger to add ammo using
+AUMENTAR_DANO,Pulsa $boton.anadir para aumentar el daño usando,Press $boton.anadir to increase damage using

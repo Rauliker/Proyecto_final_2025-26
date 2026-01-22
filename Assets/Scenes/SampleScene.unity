@@ -677,7 +677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706284441860054727, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.483
+      value: 9.63
       objectReference: {fileID: 0}
     - target: {fileID: 706284441860054727, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: m_LocalRotation.w
@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: texto
       value: 
       objectReference: {fileID: 1202511645}
+    - target: {fileID: 1148075886337834027, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: textoAumentar
+      value: 
+      objectReference: {fileID: 7458138290949876260}
     - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: speed
       value: 60
@@ -725,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: fireRate
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: textAmmo
@@ -739,6 +743,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 36927486}
+    - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: bulletsPerShot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5339806943180577778, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: m_Radius
       value: 30
@@ -795,6 +803,7 @@ MonoBehaviour:
     Recoger: 
     Recargar: 
     Correr: 
+    Anadir: 
 --- !u!4 &628790398
 Transform:
   m_ObjectHideFlags: 0
@@ -1595,7 +1604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5777118859178984922, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: points
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5777118859178984922, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: animator
@@ -1946,6 +1955,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 987415012810529489, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 987415012810529489, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
       propertyPath: m_margin.x
       value: -140.83383
       objectReference: {fileID: 0}
@@ -1957,6 +1970,10 @@ PrefabInstance:
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 987415012810529489, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 987415012810529489, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -2073,6 +2090,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6339737808151707615, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8028013147390048146, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 167
@@ -2104,6 +2125,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &7458138290949876260 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3700816731584260499, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
+  m_PrefabInstance: {fileID: 7458138290949876258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &7458138290949876262
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -122,6 +122,11 @@ public class Player : MonoBehaviour
         {
             RecogerArma(objetoRecogible);
         }
+
+        if (Input.GetKeyDown(ToKeyCode(botones.Anadir)) && objetoRecogible != null)
+        {
+            AumentarDano(objetoRecogible);
+        }
     }
 
     public void AnimationShoot()
@@ -193,6 +198,24 @@ public class Player : MonoBehaviour
 
         armas.Add(armaClon);
         objetoRecogible = null;
+        textAmmo.enabled = true;
+    }
+
+    void AumentarDano(Recoger recoger)
+    {
+        GameObject armaExistente = ObtenerArmaConTag(recoger.gameObject.tag);
+
+        if (armaExistente != null)
+        {
+            if ((points - recoger.puntos) < 0) return;
+            Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
+            int totalDano = armaExistenteDisparo.ammo + recoger.ammo;
+            armaExistenteDisparo.damage = totalDano;
+            recoger.puntosAumentar =+ 10;
+
+            AddPoints(-recoger.puntos);
+            return;
+        }
         textAmmo.enabled = true;
     }
 

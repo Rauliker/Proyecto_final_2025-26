@@ -12,6 +12,8 @@ public class Shoot : MonoBehaviour
     public Camera playerCamera;
     public float maxDistance = 1000f;
 
+    public int damage = 10;
+
     [Header("Munición")]
     public int clipSize = 10;
     public int ammunition_clip;
@@ -173,6 +175,7 @@ public class Shoot : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         GameObject bala = Instantiate(bullet, firePoint.position, firePoint.rotation);
+        bala.GetComponent<Bullet>().damage = damage;
         Rigidbody rb = bala.GetComponent<Rigidbody>();
 
         rb.isKinematic = false;
