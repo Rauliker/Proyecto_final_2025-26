@@ -6,7 +6,7 @@ public class Recoger : MonoBehaviour
     private Player playerEnRango;
     public TextMeshProUGUI texto;
     public int puntos = 10;
-    public int ammo = 10;
+    public int ammo = 100;
     public TiposArmas tipoArma = TiposArmas.PISTOLA;
 
     public bool tieneArma=false; 
@@ -42,8 +42,8 @@ public class Recoger : MonoBehaviour
 
         string municion = LocalizationManager.Instance.GetTranslation("MUNICION");
 
-        string puntos = LocalizationManager.Instance.GetTranslation("PUNTOS");
-        texto.text = $"{municion} {puntos} {puntos}";
+        string puntosTexto = LocalizationManager.Instance.GetTranslation("PUNTOS");
+        texto.text = $"{municion} {puntos} {puntosTexto}";
 
         texto.enabled = true;
 
