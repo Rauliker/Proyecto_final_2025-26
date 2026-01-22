@@ -90,12 +90,27 @@ public class Player : MonoBehaviour
         movimiento.Move(input, jump, sprint);
         ActualizarAnimaciones(input, sprint, jump);
 
-
-        if (InputDisparo() && armas.Count > 0)
+        if (armas.Count > 0)
         {
-            armas[0].GetComponent<Shoot>()?.Disparar();
+            Shoot shoot = armas[0].GetComponent<Shoot>();
 
+            if (shoot.fireMode == Shoot.FireMode.Single)
+            {
+                if (InputDisparo() && Input.GetMouseButtonDown(0))
+                    shoot.Disparar();
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    shoot.StartShooting();
+                }
 
+                if (Input.GetMouseButtonUp(0))
+                {
+                    shoot.StopShooting();
+                }
+            }
         }
 
         if (Input.GetKeyDown(ToKeyCode(botones.Recargar)) && armas.Count > 0)
@@ -120,10 +135,10 @@ public class Player : MonoBehaviour
         if (botones.Disparar.StartsWith("Mouse"))
         {
             int boton = int.Parse(botones.Disparar.Replace("Mouse", ""));
-            return Input.GetMouseButtonDown(boton);
+            return Input.GetMouseButton(boton); 
         }
 
-        return Input.GetKeyDown(ToKeyCode(botones.Disparar));
+        return Input.GetKey(ToKeyCode(botones.Disparar)); 
     }
 
     GameObject ObtenerArmaConTag(string tag)
@@ -162,6 +177,8 @@ public class Player : MonoBehaviour
 
 
         recoger.ActualizarTieneArma();
+        recoger.gameObject.GetComponent<Collider>().enabled = false;
+        recoger.gameObject.GetComponent<Collider>().enabled = true;
 
         GameObject armaClon = Instantiate(recoger.gameObject);
         armaClon.transform.SetParent(positionWeapon.transform);

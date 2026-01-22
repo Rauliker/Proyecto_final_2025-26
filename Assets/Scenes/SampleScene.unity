@@ -712,9 +712,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1202511645}
     - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: speed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1709249486}
+    - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
+      propertyPath: fireMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3940201880979281573, guid: cf7b1daa20bfc904b9ba30efc2dd3a31, type: 3}
       propertyPath: fireRate
       value: 0
@@ -1587,7 +1595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5777118859178984922, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: points
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5777118859178984922, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: animator
@@ -1953,6 +1961,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 987415012810529489, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 987415012810529489, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
