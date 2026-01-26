@@ -13,6 +13,8 @@ public class Recoger : MonoBehaviour
     public int ammo = 100;
     public TiposArmas tipoArma = TiposArmas.PISTOLA;
 
+    public Transform posocionMango;
+
     public bool tieneArma=false; 
 
     private void OnTriggerEnter(Collider other)

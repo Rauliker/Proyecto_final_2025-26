@@ -247,7 +247,15 @@ public class Player : MonoBehaviour
         armaClon.transform.SetParent(positionWeapon.transform);
         armaClon.transform.localPosition = Vector3.zero;
         armaClon.transform.localRotation = Quaternion.Euler(0,0,0);
-        armaClon.transform.localScale = Vector3.one * 0.03f;
+        Recoger recogerArma = armaClon.GetComponent<Recoger>();
+
+        float offsetX = recogerArma.posocionMango.localPosition.x;
+
+        armaClon.transform.localPosition = new Vector3(
+            -offsetX,
+            0f,
+            0f
+        );
 
         Collider col = armaClon.GetComponent<Collider>();
         if (col != null) col.enabled = false;
