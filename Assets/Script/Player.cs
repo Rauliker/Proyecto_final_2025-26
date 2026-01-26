@@ -18,7 +18,15 @@ public class Player : MonoBehaviour
     public GameObject positionWeapon;
 
     public Animator animator;
-    
+
+    [Header("Apuntar")]
+    public Camera playerCamera;
+    public float normalFOV = 60f;
+    public float aimFOV = 35f;
+    public float aimSpeed = 8f;
+
+    public bool apuntando = false;
+
 
     public int points = 0;
     public int vida = 100;
@@ -31,6 +39,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        apuntando = false;
         EquiparArmasIniciales();
         ActualizarTextPoints();
     }
@@ -89,9 +98,13 @@ public class Player : MonoBehaviour
 
         movimiento.Move(input, jump, sprint);
         ActualizarAnimaciones(input, sprint, jump);
-
+        
         if (armas.Count > 0)
         {
+            apuntando = InputApuntar();
+            ActualizarApuntado();
+
+            
             Shoot shoot = armas[0].GetComponent<Shoot>();
 
             if (shoot.fireMode == Shoot.FireMode.Single)
@@ -107,7 +120,7 @@ public class Player : MonoBehaviour
                     shoot.StartShooting();
                 }
 
-                if (InputDownDisparo())
+                if (InputUpDisparo())
                 {
                     shoot.StopShooting();
                 }
@@ -130,10 +143,34 @@ public class Player : MonoBehaviour
         }
     }
 
+    void ActualizarApuntado()
+    {
+        if (playerCamera == null) return;
+
+        float objetivoFOV = apuntando ? aimFOV : normalFOV;
+        playerCamera.fieldOfView = Mathf.Lerp(
+            playerCamera.fieldOfView,
+            objetivoFOV,
+            Time.deltaTime * aimSpeed
+        );
+        animator.SetBool("IsAim", apuntando);
+    }
+
     public void AnimationShoot()
     {
         animator.SetTrigger("ShootPistol");
 
+    }
+
+    bool InputApuntar()
+    {
+        if (botones.Apuntar.StartsWith("Mouse"))
+        {
+            int boton = int.Parse(botones.Apuntar.Replace("Mouse", ""));
+            return Input.GetMouseButton(boton);
+        }
+
+        return Input.GetKey(ToKeyCode(botones.Disparar));
     }
 
     bool InputDisparo()
@@ -209,7 +246,7 @@ public class Player : MonoBehaviour
         GameObject armaClon = Instantiate(recoger.gameObject);
         armaClon.transform.SetParent(positionWeapon.transform);
         armaClon.transform.localPosition = Vector3.zero;
-        armaClon.transform.localRotation = Quaternion.identity;
+        armaClon.transform.localRotation = Quaternion.Euler(0,0,0);
         armaClon.transform.localScale = Vector3.one * 0.03f;
 
         Collider col = armaClon.GetComponent<Collider>();
@@ -282,6 +319,8 @@ public class Player : MonoBehaviour
         animator.SetFloat("Speed", speed);
         animator.SetBool("Jumping", isJumping);
         animator.SetBool("IsRunning", isSprinting && speed > 0.1f);
+        animator.SetBool("IsAim", apuntando);
+
     }
 
 

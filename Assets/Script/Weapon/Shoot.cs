@@ -41,6 +41,7 @@ public class Shoot : MonoBehaviour
     private float nextFireTime = 0f;
     private bool isShooting = false;
 
+
     public enum FireMode
     {
         Single,
@@ -110,9 +111,11 @@ public class Shoot : MonoBehaviour
                 Vector3 baseDirection = GetShootDirection();
                 for (int i = 0; i < bulletsPerShot; i++)
                 {
+                    float spreadFinal = player.apuntando ? 0f : spreadAngle;
+
                     Vector3 direccion = Quaternion.Euler(
-                        Random.Range(-spreadAngle, spreadAngle),
-                        Random.Range(-spreadAngle, spreadAngle),
+                        Random.Range(-spreadFinal, spreadFinal),
+                        Random.Range(-spreadFinal, spreadFinal),
                         0f
                     ) * baseDirection;
 
