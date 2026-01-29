@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     public Animator animator;
 
+    private int armaActualIndex = 0;
+
     [Header("Apuntar")]
     public Camera playerCamera;
     public float normalFOV = 60f;
@@ -44,8 +46,43 @@ public class Player : MonoBehaviour
         ActualizarTextPoints();
     }
 
+    void EquiparArma(int index)
+    {
+        if (armas.Count == 0) return;
+
+        // Limitar índice
+        armaActualIndex = Mathf.Clamp(index, 0, armas.Count - 1);
+
+        // Activar solo el arma seleccionada
+        for (int i = 0; i < armas.Count; i++)
+        {
+            if (armas[i] != null)
+                armas[i].SetActive(i == armaActualIndex);
+        }
+
+        // Actualizar UI de munición
+        Shoot shoot = armas[armaActualIndex].GetComponent<Shoot>();
+        if (shoot != null)
+            shoot.ActualizarTexto();
+
+        if (armas[armaActualIndex].GetComponent<Recoger>().tipoArma == TiposArmas.FUSIL)
+        {
+
+            animator.SetBool("haveRifle", true);
+        }
+        else
+        {
+            animator.SetBool("haveRifle", false);
+
+        }
+        armas[armaActualIndex].GetComponent<Shoot>().CancelarRecarga();
+    }
+
+
     void EquiparArmasIniciales()
     {
+        
+
         if (armas.Count == 0) return;
 
         Transform camTransform = transform.Find("Main Camera");
@@ -92,6 +129,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f)
+        {
+            armaActualIndex++;
+            if (armaActualIndex >= armas.Count) armaActualIndex = 0;
+            EquiparArma(armaActualIndex);
+        }
+        else if (scroll < 0f)
+        {
+            armaActualIndex--;
+            if (armaActualIndex < 0) armaActualIndex = armas.Count - 1;
+            EquiparArma(armaActualIndex);
+        }
+
+
         Vector2 input = ObtenerInputMovimiento();
         bool jump = Input.GetKeyDown(ToKeyCode(botones.Saltar));
         bool sprint = Input.GetKey(ToKeyCode(botones.Correr));
@@ -105,7 +157,7 @@ public class Player : MonoBehaviour
             ActualizarApuntado();
 
             
-            Shoot shoot = armas[0].GetComponent<Shoot>();
+            Shoot shoot = armas[armaActualIndex].GetComponent<Shoot>();
 
             if (shoot.fireMode == Shoot.FireMode.Single)
             {
@@ -129,7 +181,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(ToKeyCode(botones.Recargar)) && armas.Count > 0)
         {
-            armas[0].GetComponent<Shoot>()?.Recargar();
+            armas[armaActualIndex].GetComponent<Shoot>()?.Recargar();
         }
 
         if (Input.GetKeyDown(ToKeyCode(botones.Recoger)) && objetoRecogible != null)
@@ -156,9 +208,16 @@ public class Player : MonoBehaviour
         animator.SetBool("IsAim", apuntando);
     }
 
-    public void AnimationShoot()
+    public void AnimationShoot(TiposArmas tipo)
     {
-        animator.SetTrigger("ShootPistol");
+        if (TiposArmas.PISTOLA==tipo)
+        {
+            animator.SetTrigger("ShootPistol");
+        }
+        if (TiposArmas.FUSIL == tipo)
+        {
+            animator.SetTrigger("ShootFusil");
+        }
 
     }
 
@@ -265,6 +324,7 @@ public class Player : MonoBehaviour
         armas.Add(armaClon);
         objetoRecogible = null;
         textAmmo.enabled = true;
+        EquiparArma(armaActualIndex);
     }
 
     void AumentarDano(Recoger recoger)

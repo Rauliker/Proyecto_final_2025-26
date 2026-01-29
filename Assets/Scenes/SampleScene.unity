@@ -1607,15 +1607,15 @@ PrefabInstance:
       objectReference: {fileID: 2043746111}
     - target: {fileID: 7750286425796307047, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0287
+      value: -0.039
       objectReference: {fileID: 0}
     - target: {fileID: 7750286425796307047, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0989
+      value: 0.246
       objectReference: {fileID: 0}
     - target: {fileID: 7750286425796307047, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0191
+      value: 0.017
       objectReference: {fileID: 0}
     - target: {fileID: 7750286425796307047, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1793,6 +1793,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7458138290949876260}
     - target: {fileID: 3930973274593408587, guid: 464a4b724c735834f86dd948cee1bc27, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1709249486}
+    - target: {fileID: 3930973274593408587, guid: 464a4b724c735834f86dd948cee1bc27, type: 3}
       propertyPath: textAmmo
       value: 
       objectReference: {fileID: 1886496438}
@@ -1800,6 +1804,10 @@ PrefabInstance:
       propertyPath: textReload
       value: 
       objectReference: {fileID: 37393578}
+    - target: {fileID: 3930973274593408587, guid: 464a4b724c735834f86dd948cee1bc27, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 36927486}
     - target: {fileID: 4735403411057704117, guid: 464a4b724c735834f86dd948cee1bc27, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.10510484

@@ -41,6 +41,9 @@ public class Shoot : MonoBehaviour
     private float nextFireTime = 0f;
     private bool isShooting = false;
 
+    private Coroutine reloadCoroutine;
+
+
 
     public enum FireMode
     {
@@ -53,6 +56,13 @@ public class Shoot : MonoBehaviour
         ammunition_clip = clipSize;
         textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
+
+
+    private void Update()
+    {
+        ActualizarMensajeRecarga();
+    }
+
 
     public void StartShooting()
     {
@@ -92,19 +102,7 @@ public class Shoot : MonoBehaviour
                     Recargar();
                     isShooting = false;
                     yield break;
-                }
-
-                // Mostrar advertencia de recarga
-                if (ammunition_clip <= 3)
-                {
-                    string text = LocalizationManager.Instance.GetTranslation("RECARGAR_ARMA");
-                    textReload.text = text;
-                    textReload.enabled = true;
-                }
-                else
-                {
-                    textReload.enabled = false;
-                }
+                }                
 
                 // Realizar disparo
                 ammunition_clip--;
@@ -135,12 +133,7 @@ public class Shoot : MonoBehaviour
         if (isReloading)
             return;
 
-        if (ammunition_clip <= 3)
-        {
-            string text = LocalizationManager.Instance.GetTranslation("RECARGAR_ARMA");
-            textReload.text = text;
-            textReload.enabled = true;
-        }
+        
 
         if (ammunition_clip <= 0)
         {
@@ -169,7 +162,8 @@ public class Shoot : MonoBehaviour
 
     void DispararBala(Vector3 direccion)
     {
-        player.AnimationShoot();
+        
+        player.AnimationShoot(transform.GetComponent<Recoger>().tipoArma);
         StartCoroutine(CrearBalaDespuesDeDelay(direccion, 0.2f));
     }
 
@@ -193,17 +187,32 @@ public class Shoot : MonoBehaviour
         if (isReloading || ammunition_clip == clipSize || ammo <= 0)
             return;
 
-        StartCoroutine(RecargarCoroutine());
+        reloadCoroutine = StartCoroutine(RecargarCoroutine());
     }
+
+    public void CancelarRecarga()
+    {
+        if (!isReloading)
+            return;
+
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
+
+        isReloading = false;
+        textReload.enabled = false;
+
+        Debug.Log("Recarga cancelada");
+    }
+
+
 
     private IEnumerator RecargarCoroutine()
     {
         isReloading = true;
-        isShooting = false; // Detener disparo durante recarga
-        Debug.Log("Recargando...");
-
-        textReload.text = LocalizationManager.Instance.GetTranslation("RECARGANDO");
-        textReload.enabled = true;
+        isShooting = false;
 
         yield return new WaitForSeconds(reloadTime);
 
@@ -214,16 +223,36 @@ public class Shoot : MonoBehaviour
         ammo -= balasACargar;
 
         isReloading = false;
+        reloadCoroutine = null;
 
         textReload.enabled = false;
-        Debug.Log($"Recarga completa! Balas en cargador: {ammunition_clip}, Munición total: {ammo}");
-
         textAmmo.text = $"{ammunition_clip}/{ammo}";
     }
+
 
     Vector3 GetShootDirection()
     {
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         return ray.direction;
     }
+
+    void ActualizarMensajeRecarga()
+    {
+        if (isReloading)
+        {
+            textReload.text = LocalizationManager.Instance.GetTranslation("RECARGANDO");
+            textReload.enabled = true;
+            return;
+        }
+
+        if (ammunition_clip <= reloadTextAmmo && ammo > 0)
+        {
+            textReload.text = LocalizationManager.Instance.GetTranslation("RECARGAR_ARMA");
+            textReload.enabled = true;
+            return;
+        }
+
+        textReload.enabled = false;
+    }
+
 }
