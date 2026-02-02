@@ -13,9 +13,13 @@ public class PlayerMovement3D : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    private AudioSource audioSource;
+    public AudioClip ausioWalk;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        audioSource = transform.GetComponent<AudioSource>();
     }
 
     public void Move(Vector2 input, bool jump, bool isSprinting)
@@ -30,10 +34,10 @@ public class PlayerMovement3D : MonoBehaviour
         Vector3 move = transform.right * input.x + transform.forward * input.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
 
-        if (jump && isGrounded)
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        if (jump && isGrounded) velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        audioSource.PlayOneShot(ausioWalk);
     }
 }

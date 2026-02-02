@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Shoot : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Shoot : MonoBehaviour
 
     public Camera playerCamera;
     public float maxDistance = 1000f;
+
+    private AudioSource audioShoot;
+    public AudioClip sonidoWav;
+
 
     public int damage = 10;
 
@@ -55,6 +60,7 @@ public class Shoot : MonoBehaviour
     {
         ammunition_clip = clipSize;
         textAmmo.text = $"{ammunition_clip}/{ammo}";
+        audioShoot = transform.GetComponent<AudioSource>();
     }
 
 
@@ -169,9 +175,14 @@ public class Shoot : MonoBehaviour
 
     private IEnumerator CrearBalaDespuesDeDelay(Vector3 direccion, float delay)
     {
+
+        audioShoot.PlayOneShot(sonidoWav);
         yield return new WaitForSeconds(delay);
 
         GameObject bala = Instantiate(bullet, firePoint.position, firePoint.rotation);
+
+        
+
         bala.GetComponent<Bullet>().damage = damage;
         Rigidbody rb = bala.GetComponent<Rigidbody>();
 
