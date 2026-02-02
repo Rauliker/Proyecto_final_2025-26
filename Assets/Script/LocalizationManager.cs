@@ -65,7 +65,7 @@ public class LocalizationManager : MonoBehaviour
         ConfigData configData = LoadConfig();
         if (configData.Idioma == "Espanol")
             idiomaActual = (Idioma)Enum.Parse(typeof(Idioma), configData.Idioma, true);
-        else
+        else if(configData.Idioma == "Ingles")
             idiomaActual = Idioma.Ingles; 
 
     }
@@ -142,6 +142,7 @@ public class LocalizationManager : MonoBehaviour
             string key = values[0].Trim();
 
             traducciones[key] = values;
+
         }
 
         Debug.Log("CSV cargado. Traducciones: " + traducciones.Count);

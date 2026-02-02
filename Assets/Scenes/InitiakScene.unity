@@ -1004,7 +1004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &570601659
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2549,7 +2549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1459968253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3346,6 +3346,8 @@ MonoBehaviour:
     Recoger: 
     Recargar: 
     Correr: 
+    Anadir: 
+    Apuntar: 
 --- !u!4 &2114138582
 Transform:
   m_ObjectHideFlags: 0

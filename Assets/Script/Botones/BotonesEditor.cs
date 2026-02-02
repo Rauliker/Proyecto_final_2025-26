@@ -1,6 +1,5 @@
-using UnityEditor;
 using UnityEngine;
-
+using UnityEditor;
 [CustomEditor(typeof(Botones))]
 public class BotonesEditor : Editor
 {

@@ -734,7 +734,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628790396}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52bb7ae74ac94dc4b9a626efc7829969, type: 3}
   m_Name: 
@@ -1900,6 +1900,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4861229007659500956, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
+      propertyPath: ausioWalk
+      value: 
+      objectReference: {fileID: 8300000, guid: 766e2f287bdcd704db2cc9fcdc2d8488, type: 3}
     - target: {fileID: 5777118859178984922, guid: addb7ccb5e2b07e44b7b236ff48a1eef, type: 3}
       propertyPath: points
       value: 0

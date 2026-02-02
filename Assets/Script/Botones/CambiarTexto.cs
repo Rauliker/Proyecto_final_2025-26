@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class LocalizedTextTMP : MonoBehaviour
@@ -13,14 +14,25 @@ public class LocalizedTextTMP : MonoBehaviour
     {
         textoTMP = GetComponent<TextMeshProUGUI>();
     }
+    private IEnumerator Start()
+    {
+        while (LocalizationManager.Instance == null)
+            yield return null;
+
+        RefreshText();
+        LocalizationManager.Instance.OnLanguageChanged += RefreshText;
+    }
+
+
 
     private void OnEnable()
     {
         // Suscribirse al evento de cambio de idioma
+        RefreshText();
         if (LocalizationManager.Instance != null)
             LocalizationManager.Instance.OnLanguageChanged += RefreshText;
 
-        RefreshText();
+        
     }
 
     private void OnDisable()
@@ -31,16 +43,14 @@ public class LocalizedTextTMP : MonoBehaviour
 
     public void RefreshText()
     {
-        if (textoTMP == null) return;
+        if (LocalizationManager.Instance == null)
+            return;
 
-        // Generar la key del CSV
+        if (textoTMP == null)
+            textoTMP = GetComponent<TextMeshProUGUI>();
+
         string key = texto.ToUpper().Replace(" ", "");
-
-        // Obtener la traducción
-        string traducido = LocalizationManager.Instance.GetTranslation(key);
-
-        // Asignar al TextMeshProUGUI
-        textoTMP.text = traducido;
-        textoTMP.enabled = true;
+        textoTMP.text = LocalizationManager.Instance.GetTranslation(key);
     }
+
 }
