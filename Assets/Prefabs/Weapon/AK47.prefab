@@ -198,6 +198,8 @@ MonoBehaviour:
   player: {fileID: 0}
   playerCamera: {fileID: 0}
   maxDistance: 1000
+  audioShoot: {fileID: 0}
+  sonidoWav: {fileID: 8300000, guid: b1958db7a81b7c946b01d1c3360bb44d, type: 3}
   damage: 10
   clipSize: 10
   ammunition_clip: 0
