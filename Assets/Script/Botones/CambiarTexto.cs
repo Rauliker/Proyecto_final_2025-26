@@ -14,14 +14,14 @@ public class LocalizedTextTMP : MonoBehaviour
     {
         textoTMP = GetComponent<TextMeshProUGUI>();
     }
-    private IEnumerator Start()
-    {
-        while (LocalizationManager.Instance == null)
-            yield return null;
+        private IEnumerator Start()
+        {
+            while (LocalizationManager.Instance == null)
+                yield return null;
 
-        RefreshText();
-        LocalizationManager.Instance.OnLanguageChanged += RefreshText;
-    }
+            RefreshText();
+            LocalizationManager.Instance.OnLanguageChanged += RefreshText;
+        }
 
 
 
