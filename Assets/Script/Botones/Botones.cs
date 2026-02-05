@@ -60,7 +60,7 @@ public class Botones : MonoBehaviour
 
         if (Application.isPlaying && SceneManager.GetSceneByName(nombreNivel) != null)
         {
-            SceneManager.LoadScene(nombreNivel);
+            SceneManager.LoadScene(nombreNivel, LoadSceneMode.Single);
         }
         else
         {

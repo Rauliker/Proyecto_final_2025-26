@@ -8,9 +8,6 @@ public class EndLevel : MonoBehaviour
 
     public TextMeshProUGUI texto;
     public Image mira;
-
-    public AudioSource audioSource;
-    public AudioClip sonidoWav;
     void Awake()
     {
         if (Instance == null)

@@ -24,7 +24,7 @@ public class LocalizedTextTMP : MonoBehaviour
         }
 
 
-
+    
     private void OnEnable()
     {
         // Suscribirse al evento de cambio de idioma

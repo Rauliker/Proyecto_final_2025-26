@@ -301,7 +301,7 @@ PrefabInstance:
       addedObject: {fileID: 5918379678934182372}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bb31892e5fb24d84395fd4a986cb1c5b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1392589911067035389}
+      addedObject: {fileID: 1203707740846130773}
   m_SourcePrefab: {fileID: 100100000, guid: bb31892e5fb24d84395fd4a986cb1c5b, type: 3}
 --- !u!1 &7300410701160731896 stripped
 GameObject:
@@ -422,6 +422,7 @@ MonoBehaviour:
   jumpHeight: 1.5
   audioWalk: {fileID: 8300000, guid: ba11591319d4a45429667d53412ddb99, type: 3}
   walkSoundInterval: 0.4
+  stopDelay: 0.3
 --- !u!114 &5777118859178984922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!82 &1392589911067035389
+--- !u!82 &1203707740846130773
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -30,7 +30,6 @@ public class LocalizationManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
 
             ApllyConfig();         // Lee config.json
             LoadJson();           // Botones
@@ -75,7 +74,7 @@ public class LocalizationManager : MonoBehaviour
     {
         ConfigData configData = new ConfigData
         {
-            Idioma = nuevoIdioma == Idioma.Espanol ? "Espanol" : "Inglés"
+            Idioma = nuevoIdioma == Idioma.Espanol ? "Espanol" : "Ingles"
         };
 
         string path = Path.Combine(Application.persistentDataPath, "config.json");
@@ -147,7 +146,24 @@ public class LocalizationManager : MonoBehaviour
 
         Debug.Log("CSV cargado. Traducciones: " + traducciones.Count);
     }
+    public float GetVolumen(string tipo)
+    {
+        ConfigData config = LoadConfig();
+        return tipo == "Musica" ? config.Musica : config.SFX;
+    }
 
+    public void SaveVolumen(string tipo, float valor)
+    {
+        ConfigData config = LoadConfig();
+
+        if (tipo == "Musica")
+            config.Musica = valor;
+        else
+            config.SFX = valor;
+
+        string path = Path.Combine(Application.persistentDataPath, "config.json");
+        File.WriteAllText(path, JsonUtility.ToJson(config, true));
+    }
     public string GetTranslation(string key)
     {
         return GetTranslationRecursive(key, new HashSet<string>());
@@ -195,5 +211,8 @@ public class LocalizationManager : MonoBehaviour
     public class ConfigData
     {
         public string Idioma;
+        public float Musica = 1f;
+        public float SFX = 1f;
     }
+
 }
