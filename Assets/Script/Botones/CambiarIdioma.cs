@@ -49,6 +49,10 @@ public class CambiarIdioma : MonoBehaviour
 
     private void OnDropdownValueChanged(int index)
     {
+        DopdownCambiarIdioma(index);
+    }
+    public void DopdownCambiarIdioma(int index)
+    {
         Idioma idiomaSeleccionado = idiomasDisponibles[index];
 
         LocalizationManager.Instance.SaveConfig(idiomaSeleccionado);

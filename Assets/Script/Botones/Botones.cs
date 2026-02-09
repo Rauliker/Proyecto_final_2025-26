@@ -7,7 +7,8 @@ public enum TiposDeBotones
 {
     Inicio,
     Configuracion,
-    Salir
+    Salir,
+    Reanudar
 }
 
 public class Botones : MonoBehaviour
@@ -21,7 +22,7 @@ public class Botones : MonoBehaviour
     [Header("Objetos UI")]
     public List<UIElementEntry> elementsUI;
 
-    void Start()
+    void OnEnable()
     {
         AsignarFuncion();
     }
@@ -50,6 +51,9 @@ public class Botones : MonoBehaviour
 
             case TiposDeBotones.Salir:
                 boton.onClick.AddListener(Salir);
+                break;
+            case TiposDeBotones.Reanudar:
+                boton.onClick.AddListener(Reanudar);
                 break;
         }
     }
@@ -82,5 +86,13 @@ public class Botones : MonoBehaviour
     {
         Debug.Log("Botón Salir pulsado");
         Application.Quit();
+    }
+
+    public void Reanudar()
+    {
+        Debug.Log("REANUDAR CLICK");
+
+        Player.Instance.Pausa();
+
     }
 }

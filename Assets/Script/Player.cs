@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private Recoger objetoRecogible;
     private PlayerMovement3D movimiento;
 
+
     public BotonesConfig botones;
 
     public TextMeshProUGUI textAmmo;
@@ -20,6 +21,10 @@ public class Player : MonoBehaviour
     public Animator animator;
 
     private int armaActualIndex = 0;
+
+    public GameObject UIDefault;
+
+    public GameObject Opciones;
 
     [Header("Apuntar")]
     public Camera playerCamera;
@@ -32,15 +37,27 @@ public class Player : MonoBehaviour
 
     public int points = 0;
     public int vida = 100;
+    private bool pausa=false;
+    public static Player Instance; // Singleton
 
     void Awake()
     {
+        // Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // evitar duplicados
+            return;
+        }
+        Instance = this;
+
         movimiento = GetComponent<PlayerMovement3D>();
         CargarBotones();
     }
 
     void Start()
     {
+        UIDefault.SetActive(true);
+        Opciones.SetActive(false);  
         apuntando = false;
         EquiparArmasIniciales();
         ActualizarTextPoints();
@@ -129,6 +146,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
         {
@@ -142,7 +160,10 @@ public class Player : MonoBehaviour
             if (armaActualIndex < 0) armaActualIndex = armas.Count - 1;
             EquiparArma(armaActualIndex);
         }
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Pausa();
+        }
 
         Vector2 input = ObtenerInputMovimiento();
         bool jump = Input.GetKeyDown(ToKeyCode(botones.Saltar));
@@ -193,6 +214,19 @@ public class Player : MonoBehaviour
         {
             AumentarDano(objetoRecogible);
         }
+    }
+
+    public void Pausa()
+    {
+        pausa = !pausa;
+
+        Time.timeScale = pausa ? 0f : 1f;
+
+        UIDefault.SetActive(!pausa);
+        Opciones.SetActive(pausa);
+
+        Cursor.visible = pausa;
+        Cursor.lockState = pausa ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     void ActualizarApuntado()

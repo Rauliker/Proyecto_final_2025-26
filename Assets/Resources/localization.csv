@@ -14,3 +14,6 @@ MUNICION,Pulsa $boton.recoger para añadir munición usando,Press $boton.recoger
 AUMENTAR_DANO,Pulsa $boton.anadir para aumentar el daño usando,Press $boton.anadir to increase damage using
 SONIDO,Sonido,Sound
 MUSICA,Musica,Music
+REANUDAR,Reanudar,Resume
+VOLVERINICIO,Volver al inicio,Return to the start
+REINICIARNIVEL,Reiniciar nivel,Restart level

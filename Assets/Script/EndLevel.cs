@@ -1,14 +1,19 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.ShaderData;
 
 public class EndLevel : MonoBehaviour
 {
-    public static EndLevel Instance;
+    // Singleton instance
+    public static EndLevel Instance { get; private set; }
 
+    [Header("UI Elements")]
     public TextMeshProUGUI texto;
-    public Image mira;
-    void Awake()
+    public Button botonFinal;
+    public GameObject mira;
+
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -18,16 +23,35 @@ public class EndLevel : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
+        if (mira != null)
+            mira.SetActive(true);
+
+        if (botonFinal != null)
+            botonFinal.gameObject.SetActive(false);
     }
 
     public void FinishGame(int points)
     {
-        mira.enabled = false;
+        Time.timeScale = 0f;
+
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        if (mira != null)
+            mira.SetActive(false);
 
         string tienes = LocalizationManager.Instance.GetTranslation("TIENESPUNTOS");
         string puntos = LocalizationManager.Instance.GetTranslation("PUNTOS");
 
-        texto.text = $"{tienes} {points} {puntos}";
-        texto.enabled = true;
+        if (texto != null)
+        {
+            texto.text = $"{tienes} {points} {puntos}";
+            texto.enabled = true;
+        }
+
+        if (botonFinal != null)
+            botonFinal.gameObject.SetActive(true);
     }
 }
