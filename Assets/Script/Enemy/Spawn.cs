@@ -9,7 +9,8 @@ public class Spawn : MonoBehaviour
     public GameObject Jugador;
     public TextMeshProUGUI WaveTexto;
 
-    public float aumentoVida = 0.00f;
+    public float aumentoVida = 5f;
+    public float vidaBase = 1f;
 
     private int ActualWave;
     public List<WaveData> waves = new List<WaveData>();
@@ -74,9 +75,8 @@ public class Spawn : MonoBehaviour
                 currentWave.SpawnPoints[randomPointIndex].transform.position,
                 Quaternion.identity
             );
-
             Enemy enemyScript = nuevoEnemigo.GetComponent<Enemy>();
-            int aumento = Mathf.Max(1, Mathf.RoundToInt(enemyScript.vida * aumentoVida));
+            int aumento = Mathf.Max(1, Mathf.RoundToInt(vidaBase * aumentoVida));
             enemyScript.vida += aumento;
             if (enemyScript != null)
             {

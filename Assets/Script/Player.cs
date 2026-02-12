@@ -367,15 +367,22 @@ public class Player : MonoBehaviour
 
         if (armaExistente != null)
         {
-            if ((points - recoger.puntos) < 0) return;
-            Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
-            int totalDano = armaExistenteDisparo.ammo + recoger.ammo;
-            armaExistenteDisparo.damage = totalDano;
-            recoger.puntosAumentar =+ 10;
+            if (points < recoger.puntos) return; // puntos suficientes?
 
+            Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
+
+            // Aumentar daño según el valor del objeto recogible
+            armaExistenteDisparo.damage += recoger.aumentoDano;
+
+            // Restar los puntos del jugador
             AddPoints(-recoger.puntos);
+
+            // Opcional: incrementar la "capacidad" de mejora del objeto recogible
+            recoger.puntosAumentar += 10;
+
             return;
         }
+
         textAmmo.enabled = true;
     }
 
