@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f1684f63ef73340afdd48bdfff3c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  vida: 10
+  vida: 1
   Jugador: {fileID: 0}
   points: 10
   dano: 10

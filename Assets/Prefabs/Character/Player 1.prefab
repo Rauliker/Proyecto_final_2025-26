@@ -452,6 +452,8 @@ MonoBehaviour:
   textPoints: {fileID: 0}
   positionWeapon: {fileID: 5734330175178244240}
   animator: {fileID: 5918379678934182372}
+  UIDefault: {fileID: 0}
+  Opciones: {fileID: 0}
   playerCamera: {fileID: 4654361615937024839}
   normalFOV: 60
   aimFOV: 35

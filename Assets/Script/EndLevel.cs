@@ -10,11 +10,12 @@ public class EndLevel : MonoBehaviour
 
     [Header("UI Elements")]
     public TextMeshProUGUI texto;
-    public Button botonFinal;
+    public GameObject botonFinal;
     public GameObject mira;
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         if (Instance == null)
         {
             Instance = this;

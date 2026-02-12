@@ -35,7 +35,7 @@ public class CambiarSonido : MonoBehaviour
     private void AplicarVolumen(float valor)
     {
         if (valor <= 0f)
-            mixer.SetFloat(parametroMixer, -80f); // Silencio
+             mixer.SetFloat(parametroMixer, -80f); // Silencio
         else
             mixer.SetFloat(parametroMixer, Mathf.Log10(valor) * 20f); // Escala logarítmica
     }

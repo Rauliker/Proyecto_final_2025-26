@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public int vida = 100;
+    public float vida = 1;
     public GameObject Jugador;
     public int points = 10;
     public int dano = 10;
