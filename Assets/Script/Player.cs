@@ -328,6 +328,10 @@ public class Player : MonoBehaviour
 
             armaExistenteDisparo.ActualizarTexto();
             AddPoints(-recoger.puntos);
+            recoger.puntosAumentar += 10;
+            armaExistente.GetComponent<Teleport>().SumarCantidad();
+
+
             return;
         }
 
@@ -370,7 +374,6 @@ public class Player : MonoBehaviour
             if (points < recoger.puntos) return; // puntos suficientes?
 
             Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
-
             // Aumentar daño según el valor del objeto recogible
             armaExistenteDisparo.damage += recoger.aumentoDano;
 
@@ -379,6 +382,7 @@ public class Player : MonoBehaviour
 
             // Opcional: incrementar la "capacidad" de mejora del objeto recogible
             recoger.puntosAumentar += 10;
+            armaExistente.GetComponent<Teleport>().SumarCantidad();
 
             return;
         }
