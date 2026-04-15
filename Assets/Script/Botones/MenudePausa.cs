@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.ShaderData;
 
 public class MenudePausa : MonoBehaviour
 {

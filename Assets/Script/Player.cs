@@ -317,8 +317,9 @@ public class Player : MonoBehaviour
 
         if (armaExistente != null)
         {
-            if ((points - recoger.puntos)<0) return;
+
             Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
+            if ((points - recoger.puntos)<0 || armaExistenteDisparo.ammo== armaExistenteDisparo.maxAmmo) return;
             int totalmunicion= armaExistenteDisparo.ammo + recoger.ammo;
             if (totalmunicion >= armaExistenteDisparo.maxAmmo)
             {

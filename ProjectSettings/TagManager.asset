@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Enemy
   - Pistol
+  - Fusil
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - enemy
   - Water
   - UI
-  - 
+  - player
   - 
   - 
   - 

@@ -19,7 +19,7 @@ public class Shoot : MonoBehaviour
 
     public int damage = 10;
 
-    [Header("Munición")]
+    [Header("Municion")]
     public int clipSize = 10;
     public int ammunition_clip;
     public int ammo = 100;
@@ -158,7 +158,7 @@ public class Shoot : MonoBehaviour
             DispararBala(baseDirection);
             ActualizarTexto();
         }
-        // El disparo múltiple ahora se maneja en ContinuousShooting
+        // El disparo mutiple ahora se maneja en ContinuousShooting
     }
 
     public void ActualizarTexto()
@@ -175,20 +175,15 @@ public class Shoot : MonoBehaviour
 
     private IEnumerator CrearBalaDespuesDeDelay(Vector3 direccion, float delay)
     {
-
         audioShoot.PlayOneShot(sonidoWav);
         yield return new WaitForSeconds(delay);
 
         GameObject bala = Instantiate(bullet, firePoint.position, firePoint.rotation);
 
-        
-
-        bala.GetComponent<Bullet>().damage = damage;
-        Rigidbody rb = bala.GetComponent<Rigidbody>();
-
-        rb.isKinematic = false;
-        rb.useGravity = false;
-        rb.linearVelocity = direccion * speed;
+        Bullet scriptBala = bala.GetComponent<Bullet>();
+        scriptBala.damage = damage;
+        scriptBala.direction = direccion;
+        scriptBala.speed = speed;
 
         Destroy(bala, 5f);
     }

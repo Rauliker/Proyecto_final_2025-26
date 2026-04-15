@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,7 +13,7 @@ public enum TiposDeBotones
 
 public class Botones : MonoBehaviour
 {
-    [Header("Tipo de Botón")]
+    [Header("Tipo de BotÃ³n")]
     public TiposDeBotones TipodeBoton;
 
     [Header("Opciones de Escena")]
@@ -33,7 +33,7 @@ public class Botones : MonoBehaviour
 
         if (!boton)
         {
-            Debug.LogError("No se encontró un componente Button.");
+            Debug.LogError("No se encontrãƒ»un componente Button.");
             return;
         }
 
@@ -84,7 +84,7 @@ public class Botones : MonoBehaviour
 
     public void Salir()
     {
-        Debug.Log("Botón Salir pulsado");
+        Debug.Log("Botî‰¢ Salir pulsado");
         Application.Quit();
     }
 

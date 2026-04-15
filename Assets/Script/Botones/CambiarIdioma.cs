@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -32,8 +32,8 @@ public class CambiarIdioma : MonoBehaviour
 
         foreach (Idioma idioma in idiomasDisponibles)
         {
-            // Mapeamos explícitamente los nombres a mostrar
-            string nombreAMostrar = idioma == Idioma.Espanol ? "Español" : "English";
+            // Mapeamos explå…¤itamente los nombres a mostrar
+            string nombreAMostrar = idioma == Idioma.Espanol ? "EspaÃ±ol" : "English";
             opciones.Add(nombreAMostrar);
         }
 

@@ -10,15 +10,10 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
     private NavMeshAgent agente;
-    private Rigidbody rb;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
-
-        rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         if (agente != null)
             agente.speed = 5f;
@@ -55,8 +50,8 @@ public class Enemy : MonoBehaviour
         Player playerScript = Jugador?.GetComponent<Player>();
         if (playerScript != null)
             playerScript.AddPoints(points);
-        
-        if (0== HasAnyAliveEnemies())
+
+        if (HasAnyAliveEnemies() == 0)
             Spawn.Instance.NextWave();
 
         Destroy(gameObject);
@@ -68,7 +63,6 @@ public class Enemy : MonoBehaviour
         return enemies.Length - 1;
     }
 
-    // Método de ataque
     public void Attack(Player target)
     {
         if (animator != null)
