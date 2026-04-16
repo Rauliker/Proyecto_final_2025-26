@@ -112296,6 +112296,10 @@ PrefabInstance:
       value: SM_CarOld02
       objectReference: {fileID: 0}
     - target: {fileID: 1030972245, guid: abc00000000013150189346379574173, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030972245, guid: abc00000000013150189346379574173, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -214844,7 +214848,7 @@ PrefabInstance:
       objectReference: {fileID: 250174603}
     - target: {fileID: 6238418461320689313, guid: db60b687e4e715c4ca4ba54fa4a67c9c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -60.236
+      value: -40.82
       objectReference: {fileID: 0}
     - target: {fileID: 6238418461320689313, guid: db60b687e4e715c4ca4ba54fa4a67c9c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -214852,7 +214856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6238418461320689313, guid: db60b687e4e715c4ca4ba54fa4a67c9c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32.55
+      value: 16.78
       objectReference: {fileID: 0}
     - target: {fileID: 6238418461320689313, guid: db60b687e4e715c4ca4ba54fa4a67c9c, type: 3}
       propertyPath: m_LocalRotation.w
