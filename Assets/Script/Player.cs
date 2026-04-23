@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public List<GameObject> armas = new List<GameObject>();
     private Recoger objetoRecogible;
     private PlayerMovement3D movimiento;
+    private Teleport teleport;
 
 
     public BotonesConfig botones;
@@ -320,17 +321,22 @@ public class Player : MonoBehaviour
 
             Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
             if ((points - recoger.puntos)<0 || armaExistenteDisparo.ammo== armaExistenteDisparo.maxAmmo) return;
-            int totalmunicion= armaExistenteDisparo.ammo + recoger.ammo;
+            int totalmunicion = armaExistenteDisparo.ammo + 10;
+
             if (totalmunicion >= armaExistenteDisparo.maxAmmo)
             {
                 totalmunicion = armaExistenteDisparo.maxAmmo;
             }
+
             armaExistenteDisparo.ammo = totalmunicion;
+
 
             armaExistenteDisparo.ActualizarTexto();
             AddPoints(-recoger.puntos);
             recoger.puntosAumentar += 10;
-            armaExistente.GetComponent<Teleport>().SumarCantidad();
+            //armaExistente.GetComponent<Teleport>().SumarCantidad();
+            recoger.GetComponent<Teleport>().SumarCantidad();
+
 
 
             return;
@@ -372,18 +378,18 @@ public class Player : MonoBehaviour
 
         if (armaExistente != null)
         {
-            if (points < recoger.puntos) return; // puntos suficientes?
+            if (points < recoger.puntosAumentar) return; // puntos suficientes?
 
             Shoot armaExistenteDisparo = armaExistente.GetComponent<Shoot>();
             // Aumentar daño según el valor del objeto recogible
             armaExistenteDisparo.damage += recoger.aumentoDano;
 
             // Restar los puntos del jugador
-            AddPoints(-recoger.puntos);
+            AddPoints(-recoger.puntosAumentar);
 
             // Opcional: incrementar la "capacidad" de mejora del objeto recogible
             recoger.puntosAumentar += 10;
-            armaExistente.GetComponent<Teleport>().SumarCantidad();
+            recoger.GetComponent<Teleport>().SumarCantidad();
             ActualizarTextPoints();
             return;
         }

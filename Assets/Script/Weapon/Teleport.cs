@@ -22,10 +22,13 @@ public class Teleport : MonoBehaviour
     {
         if (teleportPoints.Count == 0) return;
 
+        // Sumar una llamada
         contador++;
 
+        // Si aún no llegó al límite, no teletransporta
         if (contador < cantidad) return;
 
+        // Reiniciar contador
         contador = 0;
 
         // Si solo hay un punto, teletransporta sin comprobar
@@ -36,6 +39,7 @@ public class Teleport : MonoBehaviour
             return;
         }
 
+        // Elegir un punto distinto al último
         Transform destino;
         do
         {
@@ -43,7 +47,10 @@ public class Teleport : MonoBehaviour
         }
         while (destino == ultimoTeleport);
 
+        // Teletransportar
         transform.position = destino.position;
         ultimoTeleport = destino;
     }
+
+
 }

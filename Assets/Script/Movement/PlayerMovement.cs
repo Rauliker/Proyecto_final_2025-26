@@ -12,6 +12,7 @@ public class PlayerMovement3D : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
+        private Teleport teleport;
 
     [Header("Audio")]
     private AudioSource audioSource;
