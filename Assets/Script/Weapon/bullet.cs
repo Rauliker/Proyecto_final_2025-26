@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
     public float speed;
     public int damage;
     public Vector3 direction;
+    public ParticleSystem bloodPrefab;
 
     void Update()
     {
@@ -15,14 +16,26 @@ public class Bullet : MonoBehaviour
     {
         Debug.Log(other.gameObject.tag);
 
-        // Enemy
         if (other.CompareTag("Enemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
             if (enemy != null)
+            {
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                Quaternion rot = Quaternion.LookRotation(-direction);
+
+                ParticleSystem bloodInstance = Instantiate(bloodPrefab, hitPoint, rot);
+
+                bloodInstance.Play();
+
+                Destroy(bloodInstance.gameObject,
+                    bloodInstance.main.duration + bloodInstance.main.startLifetime.constantMax);
+
                 enemy.RecibirDanio(damage);
+            }
         }
+
         Destroy(gameObject);
     }
 }

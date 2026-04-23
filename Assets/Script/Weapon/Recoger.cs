@@ -34,6 +34,7 @@ public class Recoger : MonoBehaviour
 
             string puntosTexto = LocalizationManager.Instance.GetTranslation("PUNTOS");
             texto.text = $"{municion} {puntos} {puntosTexto}";
+            textoAumentar.enabled = false;
             textoAumentar.enabled = true;
             textoAumentar.text = $"{LocalizationManager.Instance.GetTranslation("AUMENTAR_DANO")} {puntosAumentar} {puntosTexto}";
         } else
@@ -44,6 +45,8 @@ public class Recoger : MonoBehaviour
         }
         texto.enabled = true;
     }
+
+
 
 
     public void ActualizarTieneArma()
@@ -64,7 +67,6 @@ public class Recoger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        playerEnRango.ClearObjetoRecogible(this);
         playerEnRango = null;
         texto.enabled = false;
         textoAumentar.enabled = false;

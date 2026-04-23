@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e95f776b6d611f49be7df0545de7347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shoot
-  speed: 60
+  speed: 40
   bulletGravity: 9.8
   player: {fileID: 0}
   playerCamera: {fileID: 0}

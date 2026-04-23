@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent agente;
 
+    private bool moviendo = true;
+
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
@@ -21,9 +23,14 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        SeguirJugador();
+        if (moviendo)
+            SeguirJugador();
     }
+    public void DetenerOContinuar()
+    {
+        moviendo = !moviendo;
 
+    }
     void SeguirJugador()
     {
         if (Jugador != null && agente != null && agente.isOnNavMesh)

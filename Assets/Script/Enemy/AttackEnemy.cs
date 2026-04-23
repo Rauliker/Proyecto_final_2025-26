@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.AI;
 
 public class AttackEnemy : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class AttackEnemy : MonoBehaviour
 
     void Start()
     {
+
         if (player == null && enemy != null && enemy.Jugador != null)
         {
             player = enemy.Jugador.GetComponent<Player>();
@@ -27,11 +29,15 @@ public class AttackEnemy : MonoBehaviour
         {
             isAttacking = true;
 
+            enemy.DetenerOContinuar();
+
+
             if (hitbox != null && !hitbox.activeSelf)
                 hitbox.SetActive(true);
 
             attackCoroutine = StartCoroutine(AttackEverySecond());
         }
+
     }
 
     void OnTriggerExit(Collider other)
@@ -39,6 +45,9 @@ public class AttackEnemy : MonoBehaviour
         if (other.CompareTag("Player") && isAttacking)
         {
             isAttacking = false;
+
+            enemy.DetenerOContinuar();
+
 
             if (hitbox != null && hitbox.activeSelf)
                 hitbox.SetActive(false);
@@ -49,6 +58,7 @@ public class AttackEnemy : MonoBehaviour
                 attackCoroutine = null;
             }
         }
+
     }
 
     IEnumerator AttackEverySecond()

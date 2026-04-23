@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        if (pausa) return;
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
         {
@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
             if (armaActualIndex < 0) armaActualIndex = armas.Count - 1;
             EquiparArma(armaActualIndex);
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pausa();
         }
@@ -384,7 +384,7 @@ public class Player : MonoBehaviour
             // Opcional: incrementar la "capacidad" de mejora del objeto recogible
             recoger.puntosAumentar += 10;
             armaExistente.GetComponent<Teleport>().SumarCantidad();
-
+            ActualizarTextPoints();
             return;
         }
 
