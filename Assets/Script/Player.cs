@@ -437,7 +437,7 @@ public class Player : MonoBehaviour
         float speed = input.magnitude;
 
         animator.SetFloat("Speed", speed);
-        animator.SetBool("Jumping", isJumping);
+        //animator.SetBool("Jumping", isJumping);
         animator.SetBool("IsRunning", isSprinting && speed > 0.1f);
         animator.SetBool("IsAim", apuntando);
 

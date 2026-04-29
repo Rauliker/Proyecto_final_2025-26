@@ -66,8 +66,8 @@ public class PlayerMovement3D : MonoBehaviour
         }
 
         // Saltar
-        if (jump && isGrounded)
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        //if (jump && isGrounded)
+        //    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
         // Aplicar gravedad
         velocity.y += gravity * Time.deltaTime;
