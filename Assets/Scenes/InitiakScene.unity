@@ -1470,6 +1470,7 @@ MonoBehaviour:
     Correr: 
     Anadir: 
     Apuntar: 
+  mixer: {fileID: 24100000, guid: 8799bd39c4d3a3047b4ac9147c4fa117, type: 2}
 --- !u!4 &2114138582
 Transform:
   m_ObjectHideFlags: 0

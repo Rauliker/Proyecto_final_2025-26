@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class LocalizationManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class LocalizationManager : MonoBehaviour
 
     public event Action OnLanguageChanged;
 
-
+    public AudioMixer mixer;
 
     private void Awake()
     {
@@ -41,6 +42,37 @@ public class LocalizationManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void Start()
+    {
+        ApplySavedVolumeToMixer(
+            mixer,
+            "Musica",   
+            "SFX"
+        );
+    }
+
+    public void ApplySavedVolume(AudioSource musicaSource, AudioSource sfxSource)
+    {
+        ConfigData config = LoadConfig();
+
+        musicaSource.volume = config.Musica;
+        sfxSource.volume = config.SFX;
+    }
+
+    public void ApplySavedVolumeToMixer(AudioMixer mixer, string parametroMusica, string parametroSFX)
+    {
+        ConfigData config = LoadConfig();
+
+        // Música
+        float volMusica = config.Musica;
+        mixer.SetFloat(parametroMusica, volMusica <= 0f ? -80f : Mathf.Log10(volMusica) * 20f);
+
+        // SFX
+        float volSFX = config.SFX;
+        mixer.SetFloat(parametroSFX, volSFX <= 0f ? -80f : Mathf.Log10(volSFX) * 20f);
+    }
+
 
     public ConfigData LoadConfig()
     {
@@ -168,6 +200,7 @@ public class LocalizationManager : MonoBehaviour
     {
         return GetTranslationRecursive(key, new HashSet<string>());
     }
+
 
     private string GetTranslationRecursive(string key, HashSet<string> visitedKeys)
     {

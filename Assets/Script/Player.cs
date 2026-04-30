@@ -147,6 +147,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pausa();
+        }
         if (pausa) return;
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
@@ -160,10 +165,6 @@ public class Player : MonoBehaviour
             armaActualIndex--;
             if (armaActualIndex < 0) armaActualIndex = armas.Count - 1;
             EquiparArma(armaActualIndex);
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Pausa();
         }
 
         Vector2 input = ObtenerInputMovimiento();
