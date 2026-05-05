@@ -22264,6 +22264,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4194495598733414331, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1086612557}
+    - targetCorrespondingSourceObject: {fileID: 4194495598733414331, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 715842323}
     - targetCorrespondingSourceObject: {fileID: 477871902855125439, guid: bee1cc1b126c3ab408ab75c528fb93ec, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1585716146}
@@ -34279,7 +34282,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
   m_PrefabInstance: {fileID: 3310018802106836019}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1416429321}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e9e893a73490694fbfee66c9f11ea30, type: 3}
@@ -63081,6 +63084,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031466349, guid: d0fa31865bc4b5e47a164730e370b128, type: 3}
   m_PrefabInstance: {fileID: 715376391}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &715842322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715842323}
+  - component: {fileID: 715842325}
+  - component: {fileID: 715842324}
+  m_Layer: 5
+  m_Name: sangre
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &715842323
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715842322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 967328921}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.6007, y: -1.2014}
+  m_SizeDelta: {x: 800.4115, y: 419.5703}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &715842324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715842322}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b7bc9f7c27680b84b8cf388b23bde63c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &715842325
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715842322}
+  m_CullTransparentMesh: 1
 --- !u!1001 &716198345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126006,6 +126084,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031471223, guid: abc00000000009944969934285024016, type: 3}
   m_PrefabInstance: {fileID: 1415942446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1416429321 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3724855511211024950, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
+  m_PrefabInstance: {fileID: 3310018802106836019}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1417138324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144296,17 +144379,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618054210}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52bb7ae74ac94dc4b9a626efc7829969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawn
-  Jugador: {fileID: 214518736}
+  Jugador: {fileID: 1416429321}
   WaveTexto: {fileID: 250174602}
   aumentoVida: 5
   vidaBase: 1
   waves:
-  - enemyCount: 5
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -144322,7 +144405,7 @@ MonoBehaviour:
     - {fileID: 683247175}
     - {fileID: 278866217}
     - {fileID: 735421173}
-  - enemyCount: 10
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -144338,7 +144421,7 @@ MonoBehaviour:
     - {fileID: 683247175}
     - {fileID: 278866217}
     - {fileID: 735421173}
-  - enemyCount: 15
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -144354,7 +144437,7 @@ MonoBehaviour:
     - {fileID: 683247175}
     - {fileID: 278866217}
     - {fileID: 735421173}
-  - enemyCount: 20
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -144370,7 +144453,7 @@ MonoBehaviour:
     - {fileID: 683247175}
     - {fileID: 278866217}
     - {fileID: 735421173}
-  - enemyCount: 25
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -144386,7 +144469,7 @@ MonoBehaviour:
     - {fileID: 683247175}
     - {fileID: 278866217}
     - {fileID: 735421173}
-  - enemyCount: 30
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -144402,7 +144485,7 @@ MonoBehaviour:
     - {fileID: 683247175}
     - {fileID: 278866217}
     - {fileID: 735421173}
-  - enemyCount: 35
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -191546,6 +191629,10 @@ PrefabInstance:
       propertyPath: model
       value: 
       objectReference: {fileID: 3310018802106836020}
+    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
+      propertyPath: sangre
+      value: 
+      objectReference: {fileID: 715842324}
     - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: Opciones
       value: 

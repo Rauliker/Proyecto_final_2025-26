@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     private bool pausa=false;
     public static Player Instance; // Singleton
 
+    public Image sangre;
+
     void Awake()
     {
         // Singleton
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        sangre.enabled = false;
         UIDefault.SetActive(true);
         Opciones.SetActive(false);  
         apuntando = false;
@@ -528,7 +531,14 @@ public class Player : MonoBehaviour
         {
             EndLevel.Instance.FinishGame(points);
 
+        } else 
+        {
+            sangre.enabled = true;
+            yield return new WaitForSeconds(0.5f);
+            sangre.enabled = false;
         }
+
+        yield break;
     }
 
     void ActualizarAnimaciones(Vector2 input, bool isSprinting, bool isJumping)
