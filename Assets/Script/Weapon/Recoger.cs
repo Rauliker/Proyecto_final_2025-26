@@ -7,6 +7,7 @@ public class Recoger : MonoBehaviour
     public TextMeshProUGUI texto;
 
     public TextMeshProUGUI textoAumentar;
+    public bool invertir = false;
     public int puntos = 10;
     public int puntosAumentar = 10;
     public int aumentoDano = 10;

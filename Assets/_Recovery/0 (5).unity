@@ -12508,38 +12508,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031471400, guid: abc00000000000911660575200604830, type: 3}
   m_PrefabInstance: {fileID: 146961970}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &147869389
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 147869390}
-  m_Layer: 0
-  m_Name: posicion camara FPS
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &147869390
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147869389}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.09, z: 0.13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1599714149}
-  m_Father: {fileID: 393266283}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &148809512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34285,11 +34253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9e893a73490694fbfee66c9f11ea30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
---- !u!4 &393266283 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4105744603327756428, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-  m_PrefabInstance: {fileID: 3310018802106836019}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &394758994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142136,37 +142099,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1030973605, guid: abc00000000002878487685261308318, type: 3}
   m_PrefabInstance: {fileID: 1598436130}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1599714148
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1599714149}
-  m_Layer: 0
-  m_Name: ARMAS FPS
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1599714149
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599714148}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.49, z: 1.243001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 147869390}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1001 &1600248445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190287,37 +190219,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031471400, guid: abc00000000000911660575200604830, type: 3}
   m_PrefabInstance: {fileID: 2132510017}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2133752992
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2133752993}
-  m_Layer: 0
-  m_Name: 'posicion camara '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2133752993
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2133752992}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8080036, y: 3.294, z: -1.540645}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 393266283}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2134375687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1030972925, guid: abc00000000017761585742761178791, type: 3}
@@ -191535,21 +191436,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: Fps
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: model
-      value: 
-      objectReference: {fileID: 3310018802106836020}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: Opciones
       value: 
       objectReference: {fileID: 719938789}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: armasFPS
-      value: 
-      objectReference: {fileID: 1599714149}
     - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: textAmmo
       value: 
@@ -191559,20 +191448,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8583085}
     - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: camaraFPS
-      value: 
-      objectReference: {fileID: 147869390}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: camaraTPS
-      value: 
-      objectReference: {fileID: 2133752993}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: textPoints
       value: 
       objectReference: {fileID: 250174600}
     - target: {fileID: 4089979565276744834, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: m_Height
-      value: 2.5682912
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4089979565276744834, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: m_Enabled
@@ -191580,7 +191461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4089979565276744834, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: m_Center.y
-      value: 2.2841468
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4105744603327756428, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191648,20 +191529,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4105744603327756428, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2133752993}
-    - targetCorrespondingSourceObject: {fileID: 4105744603327756428, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 147869390}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
---- !u!1 &3310018802106836020 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7286973548595342434, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-  m_PrefabInstance: {fileID: 3310018802106836019}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5238939151269692238
 PrefabInstance:
   m_ObjectHideFlags: 0

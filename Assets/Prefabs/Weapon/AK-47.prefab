@@ -169,6 +169,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 12236cd76708f064bb406a2630297580, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3223481649240612444}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 12236cd76708f064bb406a2630297580, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6291963171052040960}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 12236cd76708f064bb406a2630297580, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4955643221197915114}
   m_SourcePrefab: {fileID: 100100000, guid: 12236cd76708f064bb406a2630297580, type: 3}
 --- !u!4 &6238418461320689313 stripped
 Transform:
@@ -315,3 +321,57 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6291963171052040960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6762295737468480539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e95f776b6d611f49be7df0545de7347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shoot
+  speed: 40
+  bulletGravity: 9.8
+  player: {fileID: 0}
+  playerCamera: {fileID: 0}
+  maxDistance: 10
+  sonidoWav: {fileID: 8300000, guid: 575e0da07016ce945b3c771618e6286d, type: 3}
+  damage: 5
+  clipSize: 10
+  ammunition_clip: 0
+  ammo: 100
+  maxAmmo: 200
+  reloadTextAmmo: 3
+  textAmmo: {fileID: 0}
+  fireRate: 0.5
+  fireMode: 1
+  bulletsPerShot: 1
+  spreadAngle: 5
+  reloadTime: 2
+  textReload: {fileID: 0}
+  bullet: {fileID: 2432779888672377640, guid: a2aab255ad659bd45ad8fc90b022c699, type: 3}
+  firePoint: {fileID: 7185689654330570476}
+--- !u!114 &4955643221197915114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6762295737468480539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d452e11cdb773494da9477a1c6b96237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Recoger
+  texto: {fileID: 0}
+  textoAumentar: {fileID: 0}
+  puntos: 10
+  puntosAumentar: 10
+  aumentoDano: 10
+  ammo: 100
+  tipoArma: 1
+  posocionMango: {fileID: 1387083578308757623}
+  tieneArma: 0

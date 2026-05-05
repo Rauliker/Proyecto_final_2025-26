@@ -11,7 +11,11 @@ public class Player : MonoBehaviour
     private PlayerMovement3D movimiento;
     private Teleport teleport;
 
-
+    public bool Fps;
+    public Transform camaraFPS;
+    public Transform camaraTPS;
+    public Transform armasFPS;
+    public GameObject model;
     public BotonesConfig botones;
 
     public TextMeshProUGUI textAmmo;
@@ -53,6 +57,7 @@ public class Player : MonoBehaviour
 
         movimiento = GetComponent<PlayerMovement3D>();
         CargarBotones();
+        Fps = false;
     }
 
     void Start()
@@ -120,6 +125,7 @@ public class Player : MonoBehaviour
                 Vector3.zero,
                 Quaternion.Euler(0f, 270f, 0f)
             );
+            //if (!armaClon) null;
 
             Recoger recoger = armaClon.GetComponent<Recoger>();
             if (recoger != null) recoger.enabled = false;
@@ -153,6 +159,10 @@ public class Player : MonoBehaviour
             Pausa();
         }
         if (pausa) return;
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            FristPerson();
+        }
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
         {
@@ -215,6 +225,47 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(ToKeyCode(botones.Anadir)) && objetoRecogible != null)
         {
             AumentarDano(objetoRecogible);
+        }
+    }
+
+    public void FristPerson()
+    {
+        // Activar o desactivar el modelo del jugador
+        model.SetActive(Fps);
+
+        // Cambiar posición de cámara
+        if (Fps!=true)
+        {
+            Fps = true;
+            // Volver a primera persona
+            playerCamera.transform.SetParent(camaraFPS);
+            playerCamera.transform.localPosition = Vector3.zero;
+            playerCamera.transform.localRotation = Quaternion.identity;
+            //armasFPS.SetParent(playerCamera.transform);
+
+            // Mover armas a posición FPS
+            foreach (var arma in armas)
+            {
+                arma.transform.SetParent(armasFPS);
+                arma.transform.localPosition = Vector3.zero;
+                arma.transform.localRotation = Quaternion.Euler(0, 270, 0);
+            }
+        }
+        else
+        {
+            Fps = false;
+            // Pasar a tercera persona
+            playerCamera.transform.SetParent(camaraTPS);
+            playerCamera.transform.localPosition = Vector3.zero;
+            playerCamera.transform.localRotation = Quaternion.identity;
+
+            // Mover armas a posición TPS
+            foreach (var arma in armas)
+            {
+                arma.transform.SetParent(positionWeapon.transform);
+                arma.transform.localPosition = Vector3.zero;
+                arma.transform.localRotation = Quaternion.identity;
+            }
         }
     }
 
@@ -350,17 +401,23 @@ public class Player : MonoBehaviour
 
         GameObject armaClon = Instantiate(recoger.gameObject);
         armaClon.transform.SetParent(positionWeapon.transform);
-        armaClon.transform.localPosition = Vector3.zero;
-        armaClon.transform.localRotation = Quaternion.Euler(0,0,0);
+        AplicarPosicionYRotacionArma(armaClon);
         Recoger recogerArma = armaClon.GetComponent<Recoger>();
 
-        float offsetX = recogerArma.posocionMango.localPosition.x;
+        float offsetX = 0f;
 
+        offsetX = recogerArma.posocionMango.localPosition.x;
         armaClon.transform.localPosition = new Vector3(
             -offsetX,
             0f,
             0f
         );
+        
+
+        if (recogerArma.invertir)
+        {
+            armaClon.transform.localRotation *= Quaternion.Euler(0, 180f, 0);
+        }
 
         Collider col = armaClon.GetComponent<Collider>();
         if (col != null) col.enabled = false;
@@ -372,6 +429,36 @@ public class Player : MonoBehaviour
         textAmmo.enabled = true;
         EquiparArma(armaActualIndex);
     }
+    void AplicarPosicionYRotacionArma(GameObject arma)
+    {
+        Recoger recoger = arma.GetComponent<Recoger>();
+
+        // El padre SIEMPRE es TPS
+        arma.transform.SetParent(positionWeapon.transform);
+
+        if (Fps!=true)
+        {
+            // POSICIÓN FPS
+            arma.transform.localPosition = armasFPS.localPosition;
+
+            // ROTACIÓN FPS ORIGINAL
+            arma.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+            // Ajuste del mango
+            if (recoger != null && recoger.posocionMango != null)
+            {
+                float offsetX = recoger.posocionMango.localPosition.x;
+                arma.transform.localPosition += new Vector3(-offsetX, 0, 0);
+            }
+        }
+        else
+        {
+            arma.transform.SetParent(armasFPS);
+            arma.transform.localPosition = Vector3.zero;
+            arma.transform.localRotation = Quaternion.Euler(0, 270, 0);
+        }
+    }
+
 
     void AumentarDano(Recoger recoger)
     {
