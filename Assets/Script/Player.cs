@@ -249,6 +249,12 @@ public class Player : MonoBehaviour
                 arma.transform.SetParent(armasFPS);
                 arma.transform.localPosition = Vector3.zero;
                 arma.transform.localRotation = Quaternion.Euler(0, 270, 0);
+                Recoger recogerArma = arma.GetComponent<Recoger>();
+                if (recogerArma.invertir)
+                {
+                    arma.transform.localRotation *= Quaternion.Euler(0, 180f, 0);
+                }
+
             }
         }
         else
@@ -265,6 +271,11 @@ public class Player : MonoBehaviour
                 arma.transform.SetParent(positionWeapon.transform);
                 arma.transform.localPosition = Vector3.zero;
                 arma.transform.localRotation = Quaternion.identity;
+                Recoger recogerArma = arma.GetComponent<Recoger>();
+                if (recogerArma.invertir)
+                {
+                    arma.transform.localRotation *= Quaternion.Euler(0, 180f, 0);
+                }
             }
         }
     }

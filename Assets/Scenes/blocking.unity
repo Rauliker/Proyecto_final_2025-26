@@ -191390,7 +191390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -83.86
+      value: -81.29
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -191398,11 +191398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.92
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -191410,7 +191410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalRotation.z
@@ -191422,7 +191422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6744948022586745229, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -191432,6 +191432,10 @@ PrefabInstance:
       propertyPath: texto
       value: 
       objectReference: {fileID: 250174605}
+    - target: {fileID: 8660709768777966813, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
+      propertyPath: invertir
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8660709768777966813, guid: a7fa000031a1d86498ece54faa5da49e, type: 3}
       propertyPath: posocionMango
       value: 
