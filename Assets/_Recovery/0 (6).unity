@@ -144389,7 +144389,7 @@ MonoBehaviour:
   aumentoVida: 5
   vidaBase: 1
   waves:
-  - enemyCount: 5
+  - enemyCount: 1
     SpawnPoints:
     - {fileID: 1356582325}
     - {fileID: 186874176}
@@ -191626,17 +191626,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: vida
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: model
       value: 
       objectReference: {fileID: 3310018802106836020}
-    - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
-      propertyPath: points
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3723050670239525535, guid: e8d92cc5ca689ae41bab4217b754c9d3, type: 3}
       propertyPath: sangre
       value: 
@@ -191889,10 +191881,6 @@ PrefabInstance:
     - target: {fileID: 2438854059447569000, guid: 4e75cee08212381418a0337c24ea49f3, type: 3}
       propertyPath: ammo
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2438854059447569000, guid: 4e75cee08212381418a0337c24ea49f3, type: 3}
-      propertyPath: speed
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2438854059447569000, guid: 4e75cee08212381418a0337c24ea49f3, type: 3}
       propertyPath: damage

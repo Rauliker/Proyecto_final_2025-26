@@ -523,6 +523,7 @@ public class Player : MonoBehaviour
     public IEnumerator RecibirDanio(int danio, float delay)
     {
 
+        sangre.enabled = true;
 
         yield return new WaitForSeconds(delay);
         vida -= danio;
@@ -531,10 +532,8 @@ public class Player : MonoBehaviour
         {
             EndLevel.Instance.FinishGame(points);
 
-        } else 
+        } else if (vida >= 0)
         {
-            sangre.enabled = true;
-            yield return new WaitForSeconds(0.5f);
             sangre.enabled = false;
         }
 

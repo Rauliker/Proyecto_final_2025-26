@@ -18,24 +18,24 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            HitboxDamage hitbox = other.GetComponent<HitboxDamage>();
 
-            if (enemy != null)
+            if (hitbox != null)
             {
+                // Efecto de sangre
                 Vector3 hitPoint = other.ClosestPoint(transform.position);
                 Quaternion rot = Quaternion.LookRotation(-direction);
 
                 ParticleSystem bloodInstance = Instantiate(bloodPrefab, hitPoint, rot);
-
                 bloodInstance.Play();
 
                 Destroy(bloodInstance.gameObject,
                     bloodInstance.main.duration + bloodInstance.main.startLifetime.constantMax);
 
-                enemy.RecibirDanio(damage);
+                hitbox.Recibirdanio(damage);
             }
-        }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }
